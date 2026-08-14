@@ -46,18 +46,18 @@ public class Mochi {
                 System.out.println("   " + tasks[index]);
                 System.out.println(line);
             } else if (command.startsWith("todo ")) {
-                tasks[count] = new Task(command.substring(5));
+                tasks[count] = new Todo(command.substring(5));
                 count++;
                 printAdded(line, tasks[count - 1], count);
             } else if (command.startsWith("deadline ")) {
                 String[] parts = command.substring(9).split(" /by ", 2);
-                tasks[count] = new Task('D', parts[0], parts[1], null, null);
+                tasks[count] = new Deadline(parts[0], parts[1]);
                 count++;
                 printAdded(line, tasks[count - 1], count);
             } else if (command.startsWith("event ")) {
                 String[] fromParts = command.substring(6).split(" /from ", 2);
                 String[] toParts = fromParts[1].split(" /to ", 2);
-                tasks[count] = new Task('E', fromParts[0], null, toParts[0], toParts[1]);
+                tasks[count] = new Event(fromParts[0], toParts[0], toParts[1]);
                 count++;
                 printAdded(line, tasks[count - 1], count);
             }
