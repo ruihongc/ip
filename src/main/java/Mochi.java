@@ -45,18 +45,38 @@ public class Mochi {
                 System.out.println(" OK, I've marked this task as not done yet:");
                 System.out.println("   " + tasks[index]);
                 System.out.println(line);
-            } else {
-                tasks[count] = new Task(command);
+            } else if (command.startsWith("todo ")) {
+                tasks[count] = new Task(command.substring(5));
                 count++;
-                System.out.println(line);
-                System.out.println(" added: " + command);
-                System.out.println(line);
+                printAdded(line, tasks[count - 1], count);
+            } else if (command.startsWith("deadline ")) {
+                String[] parts = command.substring(9).split(" /by ", 2);
+                tasks[count] = new Task('D', parts[0], parts[1], null, null);
+                count++;
+                printAdded(line, tasks[count - 1], count);
+            } else if (command.startsWith("event ")) {
+                String[] fromParts = command.substring(6).split(" /from ", 2);
+                String[] toParts = fromParts[1].split(" /to ", 2);
+                tasks[count] = new Task('E', fromParts[0], null, toParts[0], toParts[1]);
+                count++;
+                printAdded(line, tasks[count - 1], count);
             }
             command = in.nextLine();
         }
 
         System.out.println(line);
         System.out.println("Bye. Hope to see you again soon!");
+        System.out.println(line);
+    }
+
+    /**
+     * Prints the confirmation message after adding a task.
+     */
+    private static void printAdded(String line, Task task, int count) {
+        System.out.println(line);
+        System.out.println(" Got it. I've added this task:");
+        System.out.println("   " + task);
+        System.out.println(" Now you have " + count + " tasks in the list.");
         System.out.println(line);
     }
 }
