@@ -73,6 +73,22 @@ public class Mochi {
             System.out.println(" OK, I've marked this task as not done yet:");
             System.out.println("   " + tasks[index]);
             System.out.println(line);
+        } else if (verb.equals("delete")) {
+            int index = parseTaskNumber(args) - 1;
+            if (index < 0 || index >= count) {
+                throw new MochiException("There is no task number " + (index + 1) + " in the list.");
+            }
+            Task removed = tasks[index];
+            for (int i = index; i < count - 1; i++) {
+                tasks[i] = tasks[i + 1];
+            }
+            tasks[count - 1] = null;
+            count--;
+            System.out.println(line);
+            System.out.println(" Noted. I've removed this task:");
+            System.out.println("   " + removed);
+            System.out.println(" Now you have " + count + " tasks in the list.");
+            System.out.println(line);
         } else if (verb.equals("todo")) {
             if (args.isEmpty()) {
                 throw new MochiException("The description of a todo cannot be empty.");
