@@ -9,7 +9,7 @@ public class Event extends Task {
      * Creates an event with the given description and start and end times.
      */
     public Event(String description, String from, String to) {
-        super(description);
+        super(TaskType.EVENT, description);
         this.from = from;
         this.to = to;
     }
@@ -20,6 +20,6 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[" + type.getSymbol() + "]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 }

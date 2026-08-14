@@ -8,7 +8,7 @@ public class Deadline extends Task {
      * Creates a deadline with the given description and due time.
      */
     public Deadline(String description, String by) {
-        super(description);
+        super(TaskType.DEADLINE, description);
         this.by = by;
     }
 
@@ -17,6 +17,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[" + type.getSymbol() + "]" + super.toString() + " (by: " + by + ")";
     }
 }
