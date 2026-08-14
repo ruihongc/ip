@@ -46,9 +46,16 @@ public class Mochi {
                 System.out.println("   " + tasks[index]);
                 System.out.println(line);
             } else if (command.startsWith("todo ")) {
-                tasks[count] = new Todo(command.substring(5));
-                count++;
-                printAdded(line, tasks[count - 1], count);
+                String description = command.substring(5);
+                if (description.isEmpty()) {
+                    printError(line, "The description of a todo cannot be empty.");
+                } else {
+                    tasks[count] = new Todo(description);
+                    count++;
+                    printAdded(line, tasks[count - 1], count);
+                }
+            } else if (command.equals("todo")) {
+                printError(line, "The description of a todo cannot be empty.");
             } else if (command.startsWith("deadline ")) {
                 String[] parts = command.substring(9).split(" /by ", 2);
                 tasks[count] = new Deadline(parts[0], parts[1]);
@@ -60,6 +67,8 @@ public class Mochi {
                 tasks[count] = new Event(fromParts[0], toParts[0], toParts[1]);
                 count++;
                 printAdded(line, tasks[count - 1], count);
+            } else {
+                printError(line, "I'm sorry, but I don't know what that means :-(");
             }
             command = in.nextLine();
         }
@@ -77,6 +86,15 @@ public class Mochi {
         System.out.println(" Got it. I've added this task:");
         System.out.println("   " + task);
         System.out.println(" Now you have " + count + " tasks in the list.");
+        System.out.println(line);
+    }
+
+    /**
+     * Prints the error message for an invalid command.
+     */
+    private static void printError(String line, String message) {
+        System.out.println(line);
+        System.out.println(" OOPS!!! " + message);
         System.out.println(line);
     }
 }
