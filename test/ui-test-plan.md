@@ -191,3 +191,107 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
   Bye. Hope to see you again soon!
   ____________________________________________________________
   ```
+
+## Test 6: Invalid commands (interleaved with valid ones)
+
+- **Aim**: Verify Mochi rejects unknown commands and malformed mark/deadline/event
+  commands with specific error messages, and that invalid commands do not corrupt
+  the stored tasks. Positive and negative commands are interleaved.
+- **Inputs**:
+  ```
+  todo read book
+  blah
+  todo
+  mark abc
+  mark 5
+  deadline return book
+  event project meeting
+  event project meeting /from Mon 2pm
+  list
+  bye
+  ```
+- **Expected output**:
+  ```
+  ____________________________________________________________
+      __  ___           __    _
+     /  |/  /___  _____/ /_  (_)
+    / /|_/ / __ \/ ___/ __ \/ /
+   / /  / / /_/ / /__/ / / / /
+  /_/  /_/\____/\___/_/ /_/_/
+  Hello! I'm Mochi.
+  What can I do for you?
+  ____________________________________________________________
+  ____________________________________________________________
+   Got it. I've added this task:
+     [T][ ] read book
+   Now you have 1 tasks in the list.
+  ____________________________________________________________
+  ____________________________________________________________
+   OOPS!!! I'm sorry, but I don't know what that means :-(
+  ____________________________________________________________
+  ____________________________________________________________
+   OOPS!!! The description of a todo cannot be empty.
+  ____________________________________________________________
+  ____________________________________________________________
+   OOPS!!! Please give a task number, e.g., mark 2
+  ____________________________________________________________
+  ____________________________________________________________
+   OOPS!!! There is no task number 5 in the list.
+  ____________________________________________________________
+  ____________________________________________________________
+   OOPS!!! Please add the deadline with /by, e.g., deadline return book /by Sunday
+  ____________________________________________________________
+  ____________________________________________________________
+   OOPS!!! Please add the start time with /from, e.g., event project meeting /from Mon 2pm /to 4pm
+  ____________________________________________________________
+  ____________________________________________________________
+   OOPS!!! Please add the end time with /to, e.g., event project meeting /from Mon 2pm /to 4pm
+  ____________________________________________________________
+  ____________________________________________________________
+   Here are the tasks in your list:
+   1.[T][ ] read book
+  ____________________________________________________________
+  ____________________________________________________________
+  Bye. Hope to see you again soon!
+  ____________________________________________________________
+  ```
+
+## Test 7: Empty task descriptions
+
+- **Aim**: Verify each task type rejects a missing description.
+- **Inputs**:
+  ```
+  todo
+  deadline
+  event
+  list
+  bye
+  ```
+- **Expected output**:
+  ```
+  ____________________________________________________________
+      __  ___           __    _
+     /  |/  /___  _____/ /_  (_)
+    / /|_/ / __ \/ ___/ __ \/ /
+   / /  / / /_/ / /__/ / / / /
+  /_/  /_/\____/\___/_/ /_/_/
+  Hello! I'm Mochi.
+  What can I do for you?
+  ____________________________________________________________
+  ____________________________________________________________
+   OOPS!!! The description of a todo cannot be empty.
+  ____________________________________________________________
+  ____________________________________________________________
+   OOPS!!! The description of a deadline cannot be empty.
+  ____________________________________________________________
+  ____________________________________________________________
+   OOPS!!! The description of an event cannot be empty.
+  ____________________________________________________________
+  ____________________________________________________________
+   Here are the tasks in your list:
+  ____________________________________________________________
+  ____________________________________________________________
+  Bye. Hope to see you again soon!
+  ____________________________________________________________
+  ```
+
