@@ -1,15 +1,17 @@
 /**
- * Represents a task with a description and a done status.
+ * Represents a task with a type, description, and done status.
  * This is the base class for all task types.
  */
 public class Task {
+    protected final TaskType type;
     protected String description;
     protected boolean isDone;
 
     /**
-     * Creates a task with the given description that is not done yet.
+     * Creates a task of the given type with the given description that is not done yet.
      */
-    public Task(String description) {
+    protected Task(TaskType type, String description) {
+        this.type = type;
         this.description = description;
         this.isDone = false;
     }
