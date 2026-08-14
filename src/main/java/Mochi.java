@@ -38,6 +38,13 @@ public class Mochi {
                 System.out.println(" Nice! I've marked this task as done:");
                 System.out.println("   [" + (isDone[index] ? "X" : " ") + "] " + tasks[index]);
                 System.out.println(line);
+            } else if (command.startsWith("unmark ")) {
+                int index = Integer.parseInt(command.substring(7)) - 1;
+                isDone[index] = false;
+                System.out.println(line);
+                System.out.println(" OK, I've marked this task as not done yet:");
+                System.out.println("   [" + (isDone[index] ? "X" : " ") + "] " + tasks[index]);
+                System.out.println(line);
             } else {
                 tasks[count] = command;
                 isDone[count] = false;
