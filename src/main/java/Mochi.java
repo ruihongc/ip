@@ -1,5 +1,7 @@
+import java.util.Scanner;
+
 /**
- * Mochi is a chatbot that greets the user and waits for commands.
+ * Mochi is a chatbot that greets the user, echoes their commands, and exits on "bye".
  */
 public class Mochi {
     public static void main(String[] args) {
@@ -13,6 +15,17 @@ public class Mochi {
         System.out.println(banner);
         System.out.println("Hello! I'm Mochi.");
         System.out.println("What can I do for you?");
+        System.out.println(line);
+
+        Scanner in = new Scanner(System.in);
+        String command = in.nextLine();
+        while (!command.equals("bye")) {
+            System.out.println(line);
+            System.out.println(" " + command);
+            System.out.println(line);
+            command = in.nextLine();
+        }
+
         System.out.println(line);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(line);
