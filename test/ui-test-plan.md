@@ -295,3 +295,131 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
   ____________________________________________________________
   ```
 
+## Test 8: Delete a task
+
+- **Aim**: Verify `delete N` removes the task, renumbers the rest, and reports the new count.
+- **Inputs**:
+  ```
+  todo read book
+  deadline return book /by June 6th
+  event project meeting /from Aug 6th 2pm /to 4pm
+  todo join sports club
+  todo borrow book
+  list
+  delete 3
+  list
+  bye
+  ```
+- **Expected output**:
+  ```
+  ____________________________________________________________
+      __  ___           __    _
+     /  |/  /___  _____/ /_  (_)
+    / /|_/ / __ \/ ___/ __ \/ /
+   / /  / / /_/ / /__/ / / / /
+  /_/  /_/\____/\___/_/ /_/_/
+  Hello! I'm Mochi.
+  What can I do for you?
+  ____________________________________________________________
+  ____________________________________________________________
+   Got it. I've added this task:
+     [T][ ] read book
+   Now you have 1 tasks in the list.
+  ____________________________________________________________
+  ____________________________________________________________
+   Got it. I've added this task:
+     [D][ ] return book (by: June 6th)
+   Now you have 2 tasks in the list.
+  ____________________________________________________________
+  ____________________________________________________________
+   Got it. I've added this task:
+     [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+   Now you have 3 tasks in the list.
+  ____________________________________________________________
+  ____________________________________________________________
+   Got it. I've added this task:
+     [T][ ] join sports club
+   Now you have 4 tasks in the list.
+  ____________________________________________________________
+  ____________________________________________________________
+   Got it. I've added this task:
+     [T][ ] borrow book
+   Now you have 5 tasks in the list.
+  ____________________________________________________________
+  ____________________________________________________________
+   Here are the tasks in your list:
+   1.[T][ ] read book
+   2.[D][ ] return book (by: June 6th)
+   3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+   4.[T][ ] join sports club
+   5.[T][ ] borrow book
+  ____________________________________________________________
+  ____________________________________________________________
+   Noted. I've removed this task:
+     [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+   Now you have 4 tasks in the list.
+  ____________________________________________________________
+  ____________________________________________________________
+   Here are the tasks in your list:
+   1.[T][ ] read book
+   2.[D][ ] return book (by: June 6th)
+   3.[T][ ] join sports club
+   4.[T][ ] borrow book
+  ____________________________________________________________
+  ____________________________________________________________
+  Bye. Hope to see you again soon!
+  ____________________________________________________________
+  ```
+
+## Test 9: Invalid delete commands
+
+- **Aim**: Verify `delete` rejects an out-of-range, zero, non-numeric, or missing
+  task number, and that the task list is left unchanged.
+- **Inputs**:
+  ```
+  todo read book
+  delete 2
+  delete 0
+  delete abc
+  delete
+  list
+  bye
+  ```
+- **Expected output**:
+  ```
+  ____________________________________________________________
+      __  ___           __    _
+     /  |/  /___  _____/ /_  (_)
+    / /|_/ / __ \/ ___/ __ \/ /
+   / /  / / /_/ / /__/ / / / /
+  /_/  /_/\____/\___/_/ /_/_/
+  Hello! I'm Mochi.
+  What can I do for you?
+  ____________________________________________________________
+  ____________________________________________________________
+   Got it. I've added this task:
+     [T][ ] read book
+   Now you have 1 tasks in the list.
+  ____________________________________________________________
+  ____________________________________________________________
+   OOPS!!! There is no task number 2 in the list.
+  ____________________________________________________________
+  ____________________________________________________________
+   OOPS!!! There is no task number 0 in the list.
+  ____________________________________________________________
+  ____________________________________________________________
+   OOPS!!! Please give a task number, e.g., mark 2
+  ____________________________________________________________
+  ____________________________________________________________
+   OOPS!!! Please give a task number, e.g., mark 2
+  ____________________________________________________________
+  ____________________________________________________________
+   Here are the tasks in your list:
+   1.[T][ ] read book
+  ____________________________________________________________
+  ____________________________________________________________
+  Bye. Hope to see you again soon!
+  ____________________________________________________________
+  ```
+
+
