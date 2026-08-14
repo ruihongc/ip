@@ -3,7 +3,7 @@ import java.util.Scanner;
 /**
  * Mochi is a chatbot that stores up to 100 tasks entered by the user,
  * lets the user mark tasks as done or not done, lists them on the "list"
- * command, and exits on "bye".
+ * command, reports invalid commands, and exits on "bye".
  */
 public class Mochi {
     public static void main(String[] args) {
@@ -24,51 +24,10 @@ public class Mochi {
         Scanner in = new Scanner(System.in);
         String command = in.nextLine();
         while (!command.equals("bye")) {
-            if (command.equals("list")) {
-                System.out.println(line);
-                System.out.println(" Here are the tasks in your list:");
-                for (int i = 0; i < count; i++) {
-                    System.out.println(" " + (i + 1) + "." + tasks[i]);
-                }
-                System.out.println(line);
-            } else if (command.startsWith("mark ")) {
-                int index = Integer.parseInt(command.substring(5)) - 1;
-                tasks[index].markAsDone();
-                System.out.println(line);
-                System.out.println(" Nice! I've marked this task as done:");
-                System.out.println("   " + tasks[index]);
-                System.out.println(line);
-            } else if (command.startsWith("unmark ")) {
-                int index = Integer.parseInt(command.substring(7)) - 1;
-                tasks[index].markAsNotDone();
-                System.out.println(line);
-                System.out.println(" OK, I've marked this task as not done yet:");
-                System.out.println("   " + tasks[index]);
-                System.out.println(line);
-            } else if (command.startsWith("todo ")) {
-                String description = command.substring(5);
-                if (description.isEmpty()) {
-                    printError(line, "The description of a todo cannot be empty.");
-                } else {
-                    tasks[count] = new Todo(description);
-                    count++;
-                    printAdded(line, tasks[count - 1], count);
-                }
-            } else if (command.equals("todo")) {
-                printError(line, "The description of a todo cannot be empty.");
-            } else if (command.startsWith("deadline ")) {
-                String[] parts = command.substring(9).split(" /by ", 2);
-                tasks[count] = new Deadline(parts[0], parts[1]);
-                count++;
-                printAdded(line, tasks[count - 1], count);
-            } else if (command.startsWith("event ")) {
-                String[] fromParts = command.substring(6).split(" /from ", 2);
-                String[] toParts = fromParts[1].split(" /to ", 2);
-                tasks[count] = new Event(fromParts[0], toParts[0], toParts[1]);
-                count++;
-                printAdded(line, tasks[count - 1], count);
-            } else {
-                printError(line, "I'm sorry, but I don't know what that means :-(");
+            try {
+                count = handleCommand(line, command, tasks, count);
+            } catch (MochiException e) {
+                printError(line, e.getMessage());
             }
             command = in.nextLine();
         }
@@ -76,6 +35,92 @@ public class Mochi {
         System.out.println(line);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(line);
+    }
+
+    /**
+     * Handles a single command, adding tasks to the array and returning the new
+     * number of tasks. Throws a MochiException if the command is invalid.
+     */
+    private static int handleCommand(String line, String command, Task[] tasks, int count) throws MochiException {
+        int spaceIndex = command.indexOf(' ');
+        String verb = spaceIndex == -1 ? command : command.substring(0, spaceIndex);
+        String args = spaceIndex == -1 ? "" : command.substring(spaceIndex + 1);
+
+        if (verb.equals("list")) {
+            System.out.println(line);
+            System.out.println(" Here are the tasks in your list:");
+            for (int i = 0; i < count; i++) {
+                System.out.println(" " + (i + 1) + "." + tasks[i]);
+            }
+            System.out.println(line);
+        } else if (verb.equals("mark")) {
+            int index = parseTaskNumber(args) - 1;
+            if (index < 0 || index >= count) {
+                throw new MochiException("There is no task number " + (index + 1) + " in the list.");
+            }
+            tasks[index].markAsDone();
+            System.out.println(line);
+            System.out.println(" Nice! I've marked this task as done:");
+            System.out.println("   " + tasks[index]);
+            System.out.println(line);
+        } else if (verb.equals("unmark")) {
+            int index = parseTaskNumber(args) - 1;
+            if (index < 0 || index >= count) {
+                throw new MochiException("There is no task number " + (index + 1) + " in the list.");
+            }
+            tasks[index].markAsNotDone();
+            System.out.println(line);
+            System.out.println(" OK, I've marked this task as not done yet:");
+            System.out.println("   " + tasks[index]);
+            System.out.println(line);
+        } else if (verb.equals("todo")) {
+            if (args.isEmpty()) {
+                throw new MochiException("The description of a todo cannot be empty.");
+            }
+            tasks[count] = new Todo(args);
+            count++;
+            printAdded(line, tasks[count - 1], count);
+        } else if (verb.equals("deadline")) {
+            String[] parts = args.split(" /by ", 2);
+            if (parts[0].isEmpty()) {
+                throw new MochiException("The description of a deadline cannot be empty.");
+            }
+            if (parts.length < 2) {
+                throw new MochiException("Please add the deadline with /by, e.g., deadline return book /by Sunday");
+            }
+            tasks[count] = new Deadline(parts[0], parts[1]);
+            count++;
+            printAdded(line, tasks[count - 1], count);
+        } else if (verb.equals("event")) {
+            String[] fromParts = args.split(" /from ", 2);
+            if (fromParts[0].isEmpty()) {
+                throw new MochiException("The description of an event cannot be empty.");
+            }
+            if (fromParts.length < 2) {
+                throw new MochiException("Please add the start time with /from, e.g., event project meeting /from Mon 2pm /to 4pm");
+            }
+            String[] toParts = fromParts[1].split(" /to ", 2);
+            if (toParts.length < 2) {
+                throw new MochiException("Please add the end time with /to, e.g., event project meeting /from Mon 2pm /to 4pm");
+            }
+            tasks[count] = new Event(fromParts[0], toParts[0], toParts[1]);
+            count++;
+            printAdded(line, tasks[count - 1], count);
+        } else {
+            throw new MochiException("I'm sorry, but I don't know what that means :-(");
+        }
+        return count;
+    }
+
+    /**
+     * Parses a 1-based task number from the given text.
+     */
+    private static int parseTaskNumber(String input) throws MochiException {
+        try {
+            return Integer.parseInt(input.trim());
+        } catch (NumberFormatException e) {
+            throw new MochiException("Please give a task number, e.g., mark 2");
+        }
     }
 
     /**
