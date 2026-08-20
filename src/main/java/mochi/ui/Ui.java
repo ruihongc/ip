@@ -105,4 +105,18 @@ public class Ui {
         System.out.println(" Now you have " + count + " tasks in the list.");
         System.out.println(LINE);
     }
+
+    /**
+     * Shows tasks that match a search keyword.
+     *
+     * @param matching the list of matching tasks
+     */
+    public void showMatchingTasks(List<Task> matching) {
+        System.out.println(LINE);
+        System.out.println(" Here are the matching tasks in your list:");
+        for (int i = 0; i < matching.size(); i++) {
+            System.out.println(" " + (i + 1) + "." + matching.get(i));
+        }
+        System.out.println(LINE);
+    }
 }
