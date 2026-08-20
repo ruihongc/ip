@@ -16,11 +16,18 @@ public class AddDeadlineCommand extends Command {
     private final String description;
     private final String byString;
 
+    /**
+     * Creates an add-deadline command with the given description and date string.
+     *
+     * @param description the task description
+     * @param byString    the deadline date in yyyy-mm-dd format
+     */
     public AddDeadlineCommand(String description, String byString) {
         this.description = description;
         this.byString = byString;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void execute(TaskList tasks, Ui ui) throws MochiException {
         if (description.isEmpty()) {

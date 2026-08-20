@@ -14,6 +14,11 @@ public enum TaskType {
         this.symbol = symbol;
     }
 
+    /**
+     * Returns the single-character symbol used in file storage.
+     *
+     * @return the symbol for this task type
+     */
     public char getSymbol() {
         return symbol;
     }

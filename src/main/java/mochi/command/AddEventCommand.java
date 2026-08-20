@@ -17,12 +17,20 @@ public class AddEventCommand extends Command {
     private final String fromString;
     private final String toString;
 
+    /**
+     * Creates an add-event command with the given description and date strings.
+     *
+     * @param description the task description
+     * @param fromString  the start date in yyyy-mm-dd format
+     * @param toString    the end date in yyyy-mm-dd format
+     */
     public AddEventCommand(String description, String fromString, String toString) {
         this.description = description;
         this.fromString = fromString;
         this.toString = toString;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void execute(TaskList tasks, Ui ui) throws MochiException {
         if (description.isEmpty()) {
