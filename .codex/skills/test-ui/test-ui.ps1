@@ -35,6 +35,13 @@ try {
         $expectedFile = Join-Path $casesDir ($name + '-expected.txt')
         $actualFile = Join-Path $temp ($name + '-actual.txt')
 
+        # Clean the data directory between test cases so that saved tasks
+        # from one test do not leak into the next.
+        $dataDir = Join-Path $projectRoot 'data'
+        if (Test-Path -LiteralPath $dataDir) {
+            Remove-Item -LiteralPath $dataDir -Recurse -Force -ErrorAction SilentlyContinue
+        }
+
         Write-Host ''
         Write-Host "=== Test case: $name ==="
 
@@ -70,4 +77,8 @@ try {
     Write-Host 'All test cases passed.'
 } finally {
     Remove-Item -LiteralPath $temp -Recurse -Force -ErrorAction SilentlyContinue
+    $dataDir = Join-Path $projectRoot 'data'
+    if (Test-Path -LiteralPath $dataDir) {
+        Remove-Item -LiteralPath $dataDir -Recurse -Force -ErrorAction SilentlyContinue
+    }
 }
