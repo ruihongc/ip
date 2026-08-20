@@ -1,27 +1,22 @@
+package mochi.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 /**
- * Represents a task that starts and ends at specific date/times.
+ * Represents a task that starts and ends at specific dates.
  */
 public class Event extends Task {
     protected LocalDate from;
     protected LocalDate to;
 
-    /**
-     * Creates an event with the given description and start and end dates.
-     */
     public Event(String description, LocalDate from, LocalDate to) {
         super(TaskType.EVENT, description);
         this.from = from;
         this.to = to;
     }
 
-    /**
-     * Returns a string representation of the event,
-     * e.g., "[E][ ] project meeting (from: Oct 15 2019 to: Oct 16 2019)".
-     */
     @Override
     public String toString() {
         return "[" + type.getSymbol() + "]" + super.toString()
