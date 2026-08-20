@@ -44,4 +44,70 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
+
+    /**
+     * Returns a string representation of the task suitable for saving to a file.
+     * Format: TYPE | done (0 or 1) | description
+     * Subclasses override this to append additional fields.
+     */
+    public String toFileString() {
+        return type.getSymbol() + " | " + (isDone ? "1" : "0") + " | " + description;
+    }
+
+    /**
+     * Parses a line from the saved file and returns the corresponding Task.
+     * Format: TYPE | done (0 or 1) | description [| extra fields...]
+     *
+     * @param line a single line from the data file
+     * @return the parsed Task, or {@code null} if the type is not recognised
+     * @throws MochiException if the line is corrupted or missing required fields
+     */
+    public static Task fromFileString(String line) throws MochiException {
+        String[] parts = line.split("\\|", 3);
+        if (parts.length < 3) {
+            throw new MochiException("Corrupted task data.");
+        }
+
+        String typeStr = parts[0].trim();
+        String doneStr = parts[1].trim();
+        String remaining = parts[2].trim();
+
+        boolean isDone;
+        try {
+            isDone = Integer.parseInt(doneStr) == 1;
+        } catch (NumberFormatException e) {
+            throw new MochiException("Corrupted task data.");
+        }
+
+        switch (typeStr) {
+        case "T":
+            Todo todo = new Todo(remaining);
+            if (isDone) {
+                todo.markAsDone();
+            }
+            return todo;
+        case "D":
+            String[] deadlineParts = remaining.split("\\|", 2);
+            if (deadlineParts.length < 2) {
+                throw new MochiException("Corrupted deadline data.");
+            }
+            Deadline deadline = new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim());
+            if (isDone) {
+                deadline.markAsDone();
+            }
+            return deadline;
+        case "E":
+            String[] eventParts = remaining.split("\\|", 3);
+            if (eventParts.length < 3) {
+                throw new MochiException("Corrupted event data.");
+            }
+            Event event = new Event(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim());
+            if (isDone) {
+                event.markAsDone();
+            }
+            return event;
+        default:
+            return null;
+        }
+    }
 }
