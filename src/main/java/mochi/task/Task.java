@@ -1,10 +1,10 @@
-/**
- * Represents a task with a type, description, and done status.
- * This is the base class for all task types.
- */
+package mochi.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import mochi.MochiException;
 
 /**
  * Represents a task with a type, description, and done status.
@@ -15,60 +15,35 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    /**
-     * Creates a task of the given type with the given description that is not done yet.
-     */
     protected Task(TaskType type, String description) {
         this.type = type;
         this.description = description;
         this.isDone = false;
     }
 
-    /**
-     * Returns "X" if the task is done, or " " if it is not done yet.
-     */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
-    /**
-     * Marks the task as done.
-     */
     public void markAsDone() {
         this.isDone = true;
     }
 
-    /**
-     * Marks the task as not done.
-     */
     public void markAsNotDone() {
         this.isDone = false;
     }
 
-    /**
-     * Returns a string representation of the task, e.g., "[ ] read book".
-     */
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
 
-    /**
-     * Returns a string representation of the task suitable for saving to a file.
-     * Format: TYPE | done (0 or 1) | description
-     * Subclasses override this to append additional fields.
-     */
     public String toFileString() {
         return type.getSymbol() + " | " + (isDone ? "1" : "0") + " | " + description;
     }
 
     /**
      * Parses a line from the saved file and returns the corresponding Task.
-     * Format: TYPE | done (0 or 1) | description [| extra fields...]
-     *
-     * @param line a single line from the data file
-     * @return the parsed Task, or {@code null} if the type is not recognised
-     * @throws MochiException if the line is corrupted or missing required fields
      */
     public static Task fromFileString(String line) throws MochiException {
         String[] parts = line.split("\\|", 3);

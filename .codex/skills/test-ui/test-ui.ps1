@@ -19,7 +19,7 @@ function Fail([string]$message) {
 }
 
 try {
-    $javaFiles = Get-ChildItem -LiteralPath $src -Filter '*.java' | ForEach-Object { $_.FullName }
+    $javaFiles = Get-ChildItem -LiteralPath $src -Filter '*.java' -Recurse | ForEach-Object { $_.FullName }
     & javac -d $out @javaFiles
     if ($LASTEXITCODE -ne 0) {
         Fail 'Compilation failed'
@@ -45,7 +45,7 @@ try {
         Write-Host ''
         Write-Host "=== Test case: $name ==="
 
-        Get-Content -LiteralPath $inputFile.FullName | & java -cp $out Mochi |
+        Get-Content -LiteralPath $inputFile.FullName | & java -cp $out mochi.Mochi |
             Set-Content -LiteralPath $actualFile -Encoding utf8
 
         $expected = @(Get-Content -LiteralPath $expectedFile)

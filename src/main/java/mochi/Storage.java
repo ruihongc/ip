@@ -1,57 +1,49 @@
+package mochi;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import mochi.task.Task;
+
 /**
  * Handles loading tasks from and saving tasks to a file on disk.
- * The file uses a pipe-delimited format, one task per line:
- * TYPE | done (0 or 1) | description | extra fields...
  */
 public class Storage {
-    private static final String DATA_DIR = "data";
-    private static final String FILE_NAME = "tasks.txt";
+    private final File dataFile;
 
     /**
-     * Returns the full path to the data file as a {@code File} object.
+     * Creates a storage backed by the given file path.
      */
-    private static File getDataFile() {
-        return Paths.get(DATA_DIR, FILE_NAME).toFile();
+    public Storage(String filePath) {
+        this.dataFile = Paths.get(filePath).toFile();
     }
 
     /**
-     * Loads tasks from the data file.
-     * Creates the directory and an empty file if either does not exist yet.
-     * Silently skips lines that cannot be parsed (corrupted data).
-     *
-     * @return a list of tasks read from the file
+     * Loads tasks from the data file, creating the directory and file if needed.
      */
     public List<Task> loadTasks() {
         List<Task> tasks = new ArrayList<>();
-        File file = getDataFile();
 
-        // Create the data directory if it does not exist.
-        File dir = file.getParentFile();
-        if (!dir.exists()) {
+        File dir = dataFile.getParentFile();
+        if (dir != null && !dir.exists()) {
             dir.mkdirs();
         }
 
-        // Create an empty file if one does not exist yet.
-        if (!file.exists()) {
+        if (!dataFile.exists()) {
             try {
-                file.createNewFile();
+                dataFile.createNewFile();
             } catch (IOException e) {
-                // If we cannot create the file, start with an empty list.
                 return tasks;
             }
         }
 
-        try (Scanner scanner = new Scanner(file)) {
+        try (Scanner scanner = new Scanner(dataFile)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine().trim();
                 if (line.isEmpty()) {
@@ -73,21 +65,15 @@ public class Storage {
     }
 
     /**
-     * Saves the given list of tasks to the data file, overwriting any existing content.
-     * Creates the data directory if it does not exist.
-     *
-     * @param tasks the list of tasks to save
+     * Saves the given list of tasks to the data file.
      */
     public void saveTasks(List<Task> tasks) {
-        File file = getDataFile();
-
-        // Create the data directory if it does not exist.
-        File dir = file.getParentFile();
-        if (!dir.exists()) {
+        File dir = dataFile.getParentFile();
+        if (dir != null && !dir.exists()) {
             dir.mkdirs();
         }
 
-        try (FileWriter writer = new FileWriter(file)) {
+        try (FileWriter writer = new FileWriter(dataFile)) {
             for (Task task : tasks) {
                 writer.write(task.toFileString() + System.lineSeparator());
             }
