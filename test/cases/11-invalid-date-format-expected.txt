@@ -8,13 +8,10 @@ Hello! I'm Mochi.
 What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
- Got it. I've added this task:
-   [D][ ] do homework (by: Oct 15 2019)
- Now you have 1 tasks in the list.
+ OOPS!!! The date must be in yyyy-mm-dd format, e.g., 2019-10-15
 ____________________________________________________________
 ____________________________________________________________
- Here are the tasks in your list:
- 1.[D][ ] do homework (by: Oct 15 2019)
+ OOPS!!! The dates must be in yyyy-mm-dd format, e.g., 2019-10-15
 ____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon!

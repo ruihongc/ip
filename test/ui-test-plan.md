@@ -29,11 +29,12 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
 ## Test 2: Add all task types and list
 
 - **Aim**: Verify `todo`, `deadline`, and `event` tasks are added and shown correctly in `list`.
+  Dates are stored as `LocalDate` and displayed in `MMM d yyyy` format.
 - **Inputs**:
   ```
   todo borrow book
-  deadline return book /by Sunday
-  event project meeting /from Mon 2pm /to 4pm
+  deadline return book /by 2019-12-02
+  event project meeting /from 2019-10-15 /to 2019-10-16
   list
   bye
   ```
@@ -55,19 +56,19 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
   ____________________________________________________________
   ____________________________________________________________
    Got it. I've added this task:
-     [D][ ] return book (by: Sunday)
+     [D][ ] return book (by: Dec 2 2019)
    Now you have 2 tasks in the list.
   ____________________________________________________________
   ____________________________________________________________
    Got it. I've added this task:
-     [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     [E][ ] project meeting (from: Oct 15 2019 to: Oct 16 2019)
    Now you have 3 tasks in the list.
   ____________________________________________________________
   ____________________________________________________________
    Here are the tasks in your list:
    1.[T][ ] borrow book
-   2.[D][ ] return book (by: Sunday)
-   3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+   2.[D][ ] return book (by: Dec 2 2019)
+   3.[E][ ] project meeting (from: Oct 15 2019 to: Oct 16 2019)
   ____________________________________________________________
   ____________________________________________________________
   Bye. Hope to see you again soon!
@@ -131,12 +132,12 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
   ____________________________________________________________
   ```
 
-## Test 4: Deadline with arbitrary time text
+## Test 4: Deadline with ISO date
 
-- **Aim**: Verify deadline times are treated as plain strings (no date parsing).
+- **Aim**: Verify deadline dates are parsed from `yyyy-mm-dd` and displayed as `MMM d yyyy`.
 - **Inputs**:
   ```
-  deadline do homework /by no idea :-p
+  deadline do homework /by 2019-10-15
   list
   bye
   ```
@@ -153,12 +154,12 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
   ____________________________________________________________
   ____________________________________________________________
    Got it. I've added this task:
-     [D][ ] do homework (by: no idea :-p)
+     [D][ ] do homework (by: Oct 15 2019)
    Now you have 1 tasks in the list.
   ____________________________________________________________
   ____________________________________________________________
    Here are the tasks in your list:
-   1.[D][ ] do homework (by: no idea :-p)
+   1.[D][ ] do homework (by: Oct 15 2019)
   ____________________________________________________________
   ____________________________________________________________
   Bye. Hope to see you again soon!
@@ -298,11 +299,12 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
 ## Test 8: Delete a task
 
 - **Aim**: Verify `delete N` removes the task, renumbers the rest, and reports the new count.
+  Includes deadlines and events with ISO dates.
 - **Inputs**:
   ```
   todo read book
-  deadline return book /by June 6th
-  event project meeting /from Aug 6th 2pm /to 4pm
+  deadline return book /by 2019-06-06
+  event project meeting /from 2019-08-06 /to 2019-08-07
   todo join sports club
   todo borrow book
   list
@@ -328,12 +330,12 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
   ____________________________________________________________
   ____________________________________________________________
    Got it. I've added this task:
-     [D][ ] return book (by: June 6th)
+     [D][ ] return book (by: Jun 6 2019)
    Now you have 2 tasks in the list.
   ____________________________________________________________
   ____________________________________________________________
    Got it. I've added this task:
-     [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+     [E][ ] project meeting (from: Aug 6 2019 to: Aug 7 2019)
    Now you have 3 tasks in the list.
   ____________________________________________________________
   ____________________________________________________________
@@ -349,20 +351,20 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
   ____________________________________________________________
    Here are the tasks in your list:
    1.[T][ ] read book
-   2.[D][ ] return book (by: June 6th)
-   3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+   2.[D][ ] return book (by: Jun 6 2019)
+   3.[E][ ] project meeting (from: Aug 6 2019 to: Aug 7 2019)
    4.[T][ ] join sports club
    5.[T][ ] borrow book
   ____________________________________________________________
   ____________________________________________________________
    Noted. I've removed this task:
-     [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+     [E][ ] project meeting (from: Aug 6 2019 to: Aug 7 2019)
    Now you have 4 tasks in the list.
   ____________________________________________________________
   ____________________________________________________________
    Here are the tasks in your list:
    1.[T][ ] read book
-   2.[D][ ] return book (by: June 6th)
+   2.[D][ ] return book (by: Jun 6 2019)
    3.[T][ ] join sports club
    4.[T][ ] borrow book
   ____________________________________________________________
@@ -422,4 +424,68 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
   ____________________________________________________________
   ```
 
+## Test 10: Deadline date formatting
 
+- **Aim**: Verify a deadline date given as `yyyy-mm-dd` is displayed as `MMM d yyyy`.
+- **Inputs**:
+  ```
+  deadline return book /by 2019-12-02
+  list
+  bye
+  ```
+- **Expected output**:
+  ```
+  ____________________________________________________________
+      __  ___           __    _
+     /  |/  /___  _____/ /_  (_)
+    / /|_/ / __ \/ ___/ __ \/ /
+   / /  / / /_/ / /__/ / / / /
+  /_/  /_/\____/\___/_/ /_/_/
+  Hello! I'm Mochi.
+  What can I do for you?
+  ____________________________________________________________
+  ____________________________________________________________
+   Got it. I've added this task:
+     [D][ ] return book (by: Dec 2 2019)
+   Now you have 1 tasks in the list.
+  ____________________________________________________________
+  ____________________________________________________________
+   Here are the tasks in your list:
+   1.[D][ ] return book (by: Dec 2 2019)
+  ____________________________________________________________
+  ____________________________________________________________
+  Bye. Hope to see you again soon!
+  ____________________________________________________________
+  ```
+
+## Test 11: Invalid date format
+
+- **Aim**: Verify that non-ISO dates (e.g., `Sunday`, `Mon`) are rejected with a
+  helpful error message.
+- **Inputs**:
+  ```
+  deadline return book /by Sunday
+  event meeting /from Mon /to Tue
+  bye
+  ```
+- **Expected output**:
+  ```
+  ____________________________________________________________
+      __  ___           __    _
+     /  |/  /___  _____/ /_  (_)
+    / /|_/ / __ \/ ___/ __ \/ /
+   / /  / / /_/ / /__/ / / / /
+  /_/  /_/\____/\___/_/ /_/_/
+  Hello! I'm Mochi.
+  What can I do for you?
+  ____________________________________________________________
+  ____________________________________________________________
+   OOPS!!! The date must be in yyyy-mm-dd format, e.g., 2019-10-15
+  ____________________________________________________________
+  ____________________________________________________________
+   OOPS!!! The dates must be in yyyy-mm-dd format, e.g., 2019-10-15
+  ____________________________________________________________
+  ____________________________________________________________
+  Bye. Hope to see you again soon!
+  ____________________________________________________________
+  ```
