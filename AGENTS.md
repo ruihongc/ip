@@ -35,6 +35,22 @@ After each code update:
 - Update `test/ui-test-plan.md` (and the matching files in `test/cases/`) if the change affects user-visible behavior.
 - Invoke the `test-ui` skill (`.codex/skills/test-ui/test-ui.ps1`) and make sure all test cases pass.
 
+## Java coding standard
+
+All code must follow the SE-EDU intermediate-level Java coding standard:
+https://se-education.org/guides/conventions/java/intermediate.html
+
+The full rules are captured in the `seedu-java-coding-standard` skill
+(`.codex/skills/seedu-java-coding-standard/SKILL.md`).
+
+## Git standard
+
+All commit messages and branch names must follow the SE-EDU Git conventions:
+https://se-education.org/guides/conventions/git.html
+
+The full rules are captured in the `seedu-git-standard` skill
+(`.codex/skills/seedu-git-standard/SKILL.md`).
+
 ## Git
 
 Use lightweight tags unless the user requests an annotated tag.
