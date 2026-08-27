@@ -489,3 +489,83 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
   Bye. Hope to see you again soon!
   ____________________________________________________________
   ```
+
+## Test 12: Find tasks by keyword
+
+- **Aim**: Verify `find` returns tasks whose description contains the keyword.
+- **Inputs**:
+  ```
+  todo read book
+  deadline return book /by 2019-12-02
+  event project meeting /from 2019-10-15 /to 2019-10-16
+  find book
+  bye
+  ```
+- **Expected output**:
+  ```
+  ____________________________________________________________
+      __  ___           __    _
+     /  |/  /___  _____/ /_  (_)
+    / /|_/ / __ \/ ___/ __ \/ /
+   / /  / / /_/ / /__/ / / / /
+  /_/  /_/\____/\___/_/ /_/_/
+  Hello! I'm Mochi.
+  What can I do for you?
+  ____________________________________________________________
+  ____________________________________________________________
+   Got it. I've added this task:
+     [T][ ] read book
+   Now you have 1 tasks in the list.
+  ____________________________________________________________
+  ____________________________________________________________
+   Got it. I've added this task:
+     [D][ ] return book (by: Dec 2 2019)
+   Now you have 2 tasks in the list.
+  ____________________________________________________________
+  ____________________________________________________________
+   Got it. I've added this task:
+     [E][ ] project meeting (from: Oct 15 2019 to: Oct 16 2019)
+   Now you have 3 tasks in the list.
+  ____________________________________________________________
+  ____________________________________________________________
+   Here are the matching tasks in your list:
+   1.[T][ ] read book
+   2.[D][ ] return book (by: Dec 2 2019)
+  ____________________________________________________________
+  ____________________________________________________________
+  Bye. Hope to see you again soon!
+  ____________________________________________________________
+  ```
+
+## Test 13: Find with no results
+
+- **Aim**: Verify `find` with a keyword that matches no tasks shows an empty list.
+- **Inputs**:
+  ```
+  todo read book
+  find swim
+  bye
+  ```
+- **Expected output**:
+  ```
+  ____________________________________________________________
+      __  ___           __    _
+     /  |/  /___  _____/ /_  (_)
+    / /|_/ / __ \/ ___/ __ \/ /
+   / /  / / /_/ / /__/ / / / /
+  /_/  /_/\____/\___/_/ /_/_/
+  Hello! I'm Mochi.
+  What can I do for you?
+  ____________________________________________________________
+  ____________________________________________________________
+   Got it. I've added this task:
+     [T][ ] read book
+   Now you have 1 tasks in the list.
+  ____________________________________________________________
+  ____________________________________________________________
+   Here are the matching tasks in your list:
+  ____________________________________________________________
+  ____________________________________________________________
+  Bye. Hope to see you again soon!
+  ____________________________________________________________
+  ```

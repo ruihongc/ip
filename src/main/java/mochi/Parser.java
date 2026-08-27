@@ -6,6 +6,7 @@ import mochi.command.AddTodoCommand;
 import mochi.command.Command;
 import mochi.command.DeleteCommand;
 import mochi.command.ExitCommand;
+import mochi.command.FindCommand;
 import mochi.command.ListCommand;
 import mochi.command.MarkCommand;
 import mochi.command.UnmarkCommand;
@@ -44,6 +45,11 @@ public class Parser {
             return parseDeadline(args);
         case "event":
             return parseEvent(args);
+        case "find":
+            if (args.isEmpty()) {
+                throw new MochiException("Please give a keyword to search for, e.g., find book");
+            }
+            return new FindCommand(args);
         default:
             throw new MochiException("I'm sorry, but I don't know what that means :-(");
         }
