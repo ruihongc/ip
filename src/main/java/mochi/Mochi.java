@@ -15,6 +15,11 @@ public class Mochi {
     private final TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Creates a Mochi chatbot backed by the given file path for task persistence.
+     *
+     * @param filePath path to the file used to save and load tasks
+     */
     public Mochi(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -22,6 +27,9 @@ public class Mochi {
         storage.loadTasks().forEach(tasks.getTasks()::add);
     }
 
+    /**
+     * Runs the main read-eval-print loop of the chatbot.
+     */
     public void run() {
         ui.showWelcome();
         Scanner in = new Scanner(System.in);
@@ -38,6 +46,11 @@ public class Mochi {
         }
     }
 
+    /**
+     * Entry point of the application.
+     *
+     * @param args command-line arguments (unused)
+     */
     public static void main(String[] args) {
         new Mochi("data/tasks.txt").run();
     }
