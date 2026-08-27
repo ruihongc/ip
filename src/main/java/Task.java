@@ -2,6 +2,14 @@
  * Represents a task with a type, description, and done status.
  * This is the base class for all task types.
  */
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+/**
+ * Represents a task with a type, description, and done status.
+ * This is the base class for all task types.
+ */
 public class Task {
     protected final TaskType type;
     protected String description;
@@ -91,7 +99,13 @@ public class Task {
             if (deadlineParts.length < 2) {
                 throw new MochiException("Corrupted deadline data.");
             }
-            Deadline deadline = new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim());
+            LocalDate deadlineDate;
+            try {
+                deadlineDate = LocalDate.parse(deadlineParts[1].trim(), DateTimeFormatter.ISO_LOCAL_DATE);
+            } catch (DateTimeParseException e) {
+                throw new MochiException("Corrupted deadline data.");
+            }
+            Deadline deadline = new Deadline(deadlineParts[0].trim(), deadlineDate);
             if (isDone) {
                 deadline.markAsDone();
             }
@@ -101,7 +115,15 @@ public class Task {
             if (eventParts.length < 3) {
                 throw new MochiException("Corrupted event data.");
             }
-            Event event = new Event(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim());
+            LocalDate eventFrom;
+            LocalDate eventTo;
+            try {
+                eventFrom = LocalDate.parse(eventParts[1].trim(), DateTimeFormatter.ISO_LOCAL_DATE);
+                eventTo = LocalDate.parse(eventParts[2].trim(), DateTimeFormatter.ISO_LOCAL_DATE);
+            } catch (DateTimeParseException e) {
+                throw new MochiException("Corrupted event data.");
+            }
+            Event event = new Event(eventParts[0].trim(), eventFrom, eventTo);
             if (isDone) {
                 event.markAsDone();
             }

@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -102,7 +105,13 @@ public class Mochi {
             if (parts.length < 2) {
                 throw new MochiException("Please add the deadline with /by, e.g., deadline return book /by Sunday");
             }
-            taskList.add(new Deadline(parts[0], parts[1]));
+            LocalDate by;
+            try {
+                by = LocalDate.parse(parts[1].trim(), DateTimeFormatter.ISO_LOCAL_DATE);
+            } catch (DateTimeParseException e) {
+                throw new MochiException("The date must be in yyyy-mm-dd format, e.g., 2019-10-15");
+            }
+            taskList.add(new Deadline(parts[0], by));
             printAdded(line, tasks.get(tasks.size() - 1), tasks.size());
         } else if (verb.equals("event")) {
             String[] fromParts = args.split(" /from ", 2);
@@ -116,7 +125,15 @@ public class Mochi {
             if (toParts.length < 2) {
                 throw new MochiException("Please add the end time with /to, e.g., event project meeting /from Mon 2pm /to 4pm");
             }
-            taskList.add(new Event(fromParts[0], toParts[0], toParts[1]));
+            LocalDate from;
+            LocalDate to;
+            try {
+                from = LocalDate.parse(toParts[0].trim(), DateTimeFormatter.ISO_LOCAL_DATE);
+                to = LocalDate.parse(toParts[1].trim(), DateTimeFormatter.ISO_LOCAL_DATE);
+            } catch (DateTimeParseException e) {
+                throw new MochiException("The dates must be in yyyy-mm-dd format, e.g., 2019-10-15");
+            }
+            taskList.add(new Event(fromParts[0], from, to));
             printAdded(line, tasks.get(tasks.size() - 1), tasks.size());
         } else {
             throw new MochiException("I'm sorry, but I don't know what that means :-(");
