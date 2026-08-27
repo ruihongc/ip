@@ -21,23 +21,40 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns the status icon of this task: "X" if done, " " otherwise.
+     *
+     * @return status icon string
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 
+    /** Marks this task as done. */
     public void markAsDone() {
         this.isDone = true;
     }
 
+    /** Marks this task as not done. */
     public void markAsNotDone() {
         this.isDone = false;
     }
 
+    /**
+     * Returns a human-readable representation of this task.
+     *
+     * @return formatted task string with status icon and description
+     */
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
 
+    /**
+     * Returns a pipe-delimited string for saving this task to file.
+     *
+     * @return file-format string representation
+     */
     public String toFileString() {
         return type.getSymbol() + " | " + (isDone ? "1" : "0") + " | " + description;
     }

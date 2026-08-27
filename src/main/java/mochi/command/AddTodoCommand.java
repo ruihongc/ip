@@ -11,6 +11,11 @@ import mochi.ui.Ui;
 public class AddTodoCommand extends Command {
     private final String description;
 
+    /**
+     * Creates an add-todo command with the given description.
+     *
+     * @param description the task description
+     */
     public AddTodoCommand(String description) {
         this.description = description;
     }

@@ -18,6 +18,7 @@ public class DeleteCommand extends Command {
         this.index = index;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void execute(TaskList tasks, Ui ui) throws MochiException {
         if (index < 0 || index >= tasks.getTasks().size()) {
