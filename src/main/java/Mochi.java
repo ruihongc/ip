@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,12 +20,15 @@ public class Mochi {
         System.out.println("What can I do for you?");
         System.out.println(line);
 
-        List<Task> tasks = new ArrayList<>();
+        Storage storage = new Storage();
+        TaskList taskList = new TaskList(storage);
+        storage.loadTasks().forEach(taskList.getTasks()::add);
+
         Scanner in = new Scanner(System.in);
         String command = in.nextLine();
         while (!command.equals("bye")) {
             try {
-                handleCommand(line, command, tasks);
+                handleCommand(line, command, taskList);
             } catch (MochiException e) {
                 printError(line, e.getMessage());
             }
@@ -42,10 +44,11 @@ public class Mochi {
      * Handles a single command, adding, modifying, or removing tasks from the
      * list as needed. Throws a MochiException if the command is invalid.
      */
-    private static void handleCommand(String line, String command, List<Task> tasks) throws MochiException {
+    private static void handleCommand(String line, String command, TaskList taskList) throws MochiException {
         int spaceIndex = command.indexOf(' ');
         String verb = spaceIndex == -1 ? command : command.substring(0, spaceIndex);
         String args = spaceIndex == -1 ? "" : command.substring(spaceIndex + 1);
+        List<Task> tasks = taskList.getTasks();
 
         if (verb.equals("list")) {
             System.out.println(line);
@@ -59,7 +62,7 @@ public class Mochi {
             if (index < 0 || index >= tasks.size()) {
                 throw new MochiException("There is no task number " + (index + 1) + " in the list.");
             }
-            tasks.get(index).markAsDone();
+            taskList.mark(index);
             System.out.println(line);
             System.out.println(" Nice! I've marked this task as done:");
             System.out.println("   " + tasks.get(index));
@@ -69,7 +72,7 @@ public class Mochi {
             if (index < 0 || index >= tasks.size()) {
                 throw new MochiException("There is no task number " + (index + 1) + " in the list.");
             }
-            tasks.get(index).markAsNotDone();
+            taskList.unmark(index);
             System.out.println(line);
             System.out.println(" OK, I've marked this task as not done yet:");
             System.out.println("   " + tasks.get(index));
@@ -79,7 +82,7 @@ public class Mochi {
             if (index < 0 || index >= tasks.size()) {
                 throw new MochiException("There is no task number " + (index + 1) + " in the list.");
             }
-            Task removed = tasks.remove(index);
+            Task removed = taskList.remove(index);
             System.out.println(line);
             System.out.println(" Noted. I've removed this task:");
             System.out.println("   " + removed);
@@ -89,7 +92,7 @@ public class Mochi {
             if (args.isEmpty()) {
                 throw new MochiException("The description of a todo cannot be empty.");
             }
-            tasks.add(new Todo(args));
+            taskList.add(new Todo(args));
             printAdded(line, tasks.get(tasks.size() - 1), tasks.size());
         } else if (verb.equals("deadline")) {
             String[] parts = args.split(" /by ", 2);
@@ -99,7 +102,7 @@ public class Mochi {
             if (parts.length < 2) {
                 throw new MochiException("Please add the deadline with /by, e.g., deadline return book /by Sunday");
             }
-            tasks.add(new Deadline(parts[0], parts[1]));
+            taskList.add(new Deadline(parts[0], parts[1]));
             printAdded(line, tasks.get(tasks.size() - 1), tasks.size());
         } else if (verb.equals("event")) {
             String[] fromParts = args.split(" /from ", 2);
@@ -113,7 +116,7 @@ public class Mochi {
             if (toParts.length < 2) {
                 throw new MochiException("Please add the end time with /to, e.g., event project meeting /from Mon 2pm /to 4pm");
             }
-            tasks.add(new Event(fromParts[0], toParts[0], toParts[1]));
+            taskList.add(new Event(fromParts[0], toParts[0], toParts[1]));
             printAdded(line, tasks.get(tasks.size() - 1), tasks.size());
         } else {
             throw new MochiException("I'm sorry, but I don't know what that means :-(");
