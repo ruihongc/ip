@@ -30,13 +30,15 @@ public class TaskList {
     }
 
     /**
-     * Adds a task to the list and saves.
+     * Adds one or more tasks to the list and saves.
      *
-     * @param task the task to add
+     * @param tasks the tasks to add (zero or more)
      */
-    public void add(Task task) {
-        tasks.add(task);
-        storage.saveTasks(tasks);
+    public void add(Task... tasks) {
+        for (Task task : tasks) {
+            this.tasks.add(task);
+        }
+        storage.saveTasks(this.tasks);
     }
 
     /**

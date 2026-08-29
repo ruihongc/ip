@@ -5,6 +5,7 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 import mochi.command.Command;
+import mochi.task.Task;
 import mochi.ui.Ui;
 
 /**
@@ -35,7 +36,7 @@ public class Mochi {
         ui = new Ui();
         storage = new Storage(filePath);
         tasks = new TaskList(storage);
-        storage.loadTasks().forEach(tasks.getTasks()::add);
+        tasks.add(storage.loadTasks().toArray(new Task[0]));
     }
 
     /**
