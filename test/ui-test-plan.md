@@ -4,6 +4,11 @@ This plan records the test cases used to verify Mochi's text output.
 Run them with the `test-ui` skill (`.codex/skills/test-ui/test-ui.ps1`).
 Machine-readable input/expected file pairs for each case are in `test/cases/`.
 
+> **GUI (Level-10):** The application now launches a JavaFX GUI via the
+> `mochi.gui.Launcher` entry point. The text UI below is preserved and still
+> exercised by these test cases. The GUI reuses the same responses through
+> `Mochi.getResponse`, covered by `MochiTest`.
+
 ## Test 1: Greeting and exit
 
 - **Aim**: Verify Mochi greets the user and says goodbye on `bye`.
