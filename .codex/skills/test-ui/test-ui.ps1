@@ -19,7 +19,12 @@ function Fail([string]$message) {
 }
 
 try {
-    $javaFiles = Get-ChildItem -LiteralPath $src -Filter '*.java' -Recurse | ForEach-Object { $_.FullName }
+    # Compile the text-UI source files. The JavaFX GUI classes (mochi/gui)
+    # are excluded because this script relies on a bare javac invocation that
+    # does not have the JavaFX libraries on its classpath.
+    $javaFiles = Get-ChildItem -LiteralPath $src -Filter '*.java' -Recurse |
+        Where-Object { $_.FullName -notmatch '\\gui\\' } |
+        ForEach-Object { $_.FullName }
     & javac -d $out @javaFiles
     if ($LASTEXITCODE -ne 0) {
         Fail 'Compilation failed'
