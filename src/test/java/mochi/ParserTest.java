@@ -3,7 +3,6 @@ package mochi;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -105,8 +104,7 @@ public class ParserTest {
 
     @Test
     public void parse_eventMissingTo_throwsMochiException() {
-        MochiException ex = assertThrows(MochiException.class,
-                () -> Parser.parse("event meeting /from 2019-10-15"));
+        MochiException ex = assertThrows(MochiException.class, () -> Parser.parse("event meeting /from 2019-10-15"));
         assertEquals("Please add the end time with /to, e.g., event project meeting /from Mon 2pm /to 4pm",
                 ex.getMessage());
     }

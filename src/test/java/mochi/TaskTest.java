@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.time.LocalDate;
-
 import org.junit.jupiter.api.Test;
 
 import mochi.task.Deadline;
@@ -59,15 +57,13 @@ public class TaskTest {
 
     @Test
     public void fromFileString_tooFewParts_throwsMochiException() {
-        MochiException ex = assertThrows(MochiException.class,
-                () -> Task.fromFileString("T | 0"));
+        MochiException ex = assertThrows(MochiException.class, () -> Task.fromFileString("T | 0"));
         assertEquals("Corrupted task data.", ex.getMessage());
     }
 
     @Test
     public void fromFileString_invalidDoneFlag_throwsMochiException() {
-        MochiException ex = assertThrows(MochiException.class,
-                () -> Task.fromFileString("T | x | read book"));
+        MochiException ex = assertThrows(MochiException.class, () -> Task.fromFileString("T | x | read book"));
         assertEquals("Corrupted task data.", ex.getMessage());
     }
 
@@ -79,22 +75,20 @@ public class TaskTest {
 
     @Test
     public void fromFileString_deadlineMissingDate_throwsMochiException() {
-        MochiException ex = assertThrows(MochiException.class,
-                () -> Task.fromFileString("D | 0 | return book"));
+        MochiException ex = assertThrows(MochiException.class, () -> Task.fromFileString("D | 0 | return book"));
         assertEquals("Corrupted deadline data.", ex.getMessage());
     }
 
     @Test
     public void fromFileString_eventMissingDates_throwsMochiException() {
-        MochiException ex = assertThrows(MochiException.class,
-                () -> Task.fromFileString("E | 0 | meeting"));
+        MochiException ex = assertThrows(MochiException.class, () -> Task.fromFileString("E | 0 | meeting"));
         assertEquals("Corrupted event data.", ex.getMessage());
     }
 
     @Test
     public void fromFileString_deadlineBadDate_throwsMochiException() {
-        MochiException ex = assertThrows(MochiException.class,
-                () -> Task.fromFileString("D | 0 | return book | not-a-date"));
+        MochiException ex = assertThrows(MochiException.class, () -> Task
+                .fromFileString("D | 0 | return book | not-a-date"));
         assertEquals("Corrupted deadline data.", ex.getMessage());
     }
 

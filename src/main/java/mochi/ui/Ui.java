@@ -2,7 +2,6 @@ package mochi.ui;
 
 import java.util.List;
 
-import mochi.TaskList;
 import mochi.task.Task;
 
 /**
