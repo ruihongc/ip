@@ -80,48 +80,48 @@ public class Task {
         }
 
         switch (typeStr) {
-        case "T":
-            Todo todo = new Todo(remaining);
-            if (isDone) {
-                todo.markAsDone();
-            }
-            return todo;
-        case "D":
-            String[] deadlineParts = remaining.split("\\|", 2);
-            if (deadlineParts.length < 2) {
-                throw new MochiException("Corrupted deadline data.");
-            }
-            LocalDate deadlineDate;
-            try {
-                deadlineDate = LocalDate.parse(deadlineParts[1].trim(), DateTimeFormatter.ISO_LOCAL_DATE);
-            } catch (DateTimeParseException e) {
-                throw new MochiException("Corrupted deadline data.");
-            }
-            Deadline deadline = new Deadline(deadlineParts[0].trim(), deadlineDate);
-            if (isDone) {
-                deadline.markAsDone();
-            }
-            return deadline;
-        case "E":
-            String[] eventParts = remaining.split("\\|", 3);
-            if (eventParts.length < 3) {
-                throw new MochiException("Corrupted event data.");
-            }
-            LocalDate eventFrom;
-            LocalDate eventTo;
-            try {
-                eventFrom = LocalDate.parse(eventParts[1].trim(), DateTimeFormatter.ISO_LOCAL_DATE);
-                eventTo = LocalDate.parse(eventParts[2].trim(), DateTimeFormatter.ISO_LOCAL_DATE);
-            } catch (DateTimeParseException e) {
-                throw new MochiException("Corrupted event data.");
-            }
-            Event event = new Event(eventParts[0].trim(), eventFrom, eventTo);
-            if (isDone) {
-                event.markAsDone();
-            }
-            return event;
-        default:
-            return null;
+            case "T":
+                Todo todo = new Todo(remaining);
+                if (isDone) {
+                    todo.markAsDone();
+                }
+                return todo;
+            case "D":
+                String[] deadlineParts = remaining.split("\\|", 2);
+                if (deadlineParts.length < 2) {
+                    throw new MochiException("Corrupted deadline data.");
+                }
+                LocalDate deadlineDate;
+                try {
+                    deadlineDate = LocalDate.parse(deadlineParts[1].trim(), DateTimeFormatter.ISO_LOCAL_DATE);
+                } catch (DateTimeParseException e) {
+                    throw new MochiException("Corrupted deadline data.");
+                }
+                Deadline deadline = new Deadline(deadlineParts[0].trim(), deadlineDate);
+                if (isDone) {
+                    deadline.markAsDone();
+                }
+                return deadline;
+            case "E":
+                String[] eventParts = remaining.split("\\|", 3);
+                if (eventParts.length < 3) {
+                    throw new MochiException("Corrupted event data.");
+                }
+                LocalDate eventFrom;
+                LocalDate eventTo;
+                try {
+                    eventFrom = LocalDate.parse(eventParts[1].trim(), DateTimeFormatter.ISO_LOCAL_DATE);
+                    eventTo = LocalDate.parse(eventParts[2].trim(), DateTimeFormatter.ISO_LOCAL_DATE);
+                } catch (DateTimeParseException e) {
+                    throw new MochiException("Corrupted event data.");
+                }
+                Event event = new Event(eventParts[0].trim(), eventFrom, eventTo);
+                if (isDone) {
+                    event.markAsDone();
+                }
+                return event;
+            default:
+                return null;
         }
     }
 }
