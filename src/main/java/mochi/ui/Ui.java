@@ -75,10 +75,7 @@ public class Ui {
      * Shows the full task list.
      */
     public void showTaskList(List<Task> tasks) {
-        out.println(LINE);
-        out.println(" Here are the tasks in your list:");
-        printNumbered(tasks);
-        out.println(LINE);
+        showNumberedList(" Here are the tasks in your list:", tasks);
     }
 
     /**
@@ -129,19 +126,20 @@ public class Ui {
      * @param matching the list of matching tasks
      */
     public void showMatchingTasks(List<Task> matching) {
-        out.println(LINE);
-        out.println(" Here are the matching tasks in your list:");
-        printNumbered(matching);
-        out.println(LINE);
+        showNumberedList(" Here are the matching tasks in your list:", matching);
     }
 
     /**
-     * Prints each task of the given list on its own numbered line.
+     * Shows a numbered list of tasks under a heading, delimited by divider lines.
      *
-     * @param items the tasks to display, in display order
+     * @param heading the heading line to print above the list
+     * @param items   the tasks to display, in display order
      */
-    private void printNumbered(List<Task> items) {
+    private void showNumberedList(String heading, List<Task> items) {
+        out.println(LINE);
+        out.println(heading);
         IntStream.range(0, items.size())
                 .forEach(i -> out.println(" " + (i + 1) + "." + items.get(i)));
+        out.println(LINE);
     }
 }

@@ -47,14 +47,7 @@ public class Mochi {
         Scanner in = new Scanner(System.in);
         boolean isExit = false;
         while (!isExit) {
-            try {
-                String fullCommand = in.nextLine();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui);
-                isExit = c.isExit();
-            } catch (MochiException e) {
-                ui.showError(e.getMessage());
-            }
+            isExit = executeCommand(in.nextLine(), ui);
         }
     }
 
@@ -69,13 +62,26 @@ public class Mochi {
     public String getResponse(String fullCommand) {
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         Ui guiUi = new Ui(new PrintStream(buffer));
+        executeCommand(fullCommand, guiUi);
+        return buffer.toString().trim();
+    }
+
+    /**
+     * Parses and executes a single user command against the given UI.
+     *
+     * @param fullCommand the raw user input
+     * @param ui          the UI that receives the command output
+     * @return true if the executed command asks the chatbot to exit
+     */
+    private boolean executeCommand(String fullCommand, Ui ui) {
         try {
             Command c = Parser.parse(fullCommand);
-            c.execute(tasks, guiUi);
+            c.execute(tasks, ui);
+            return c.isExit();
         } catch (MochiException e) {
-            guiUi.showError(e.getMessage());
+            ui.showError(e.getMessage());
+            return false;
         }
-        return buffer.toString().trim();
     }
 
     /**

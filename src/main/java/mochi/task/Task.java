@@ -84,9 +84,7 @@ public class Task {
         switch (typeStr) {
             case "T":
                 Todo todo = new Todo(remaining);
-                if (isDone) {
-                    todo.markAsDone();
-                }
+                applyDoneFlag(todo, isDone);
                 return todo;
             case "D":
                 String[] deadlineParts = remaining.split("\\|", 2);
@@ -100,9 +98,7 @@ public class Task {
                     throw new MochiException("Corrupted deadline data.");
                 }
                 Deadline deadline = new Deadline(deadlineParts[0].trim(), deadlineDate);
-                if (isDone) {
-                    deadline.markAsDone();
-                }
+                applyDoneFlag(deadline, isDone);
                 return deadline;
             case "E":
                 String[] eventParts = remaining.split("\\|", 3);
@@ -118,12 +114,22 @@ public class Task {
                     throw new MochiException("Corrupted event data.");
                 }
                 Event event = new Event(eventParts[0].trim(), eventFrom, eventTo);
-                if (isDone) {
-                    event.markAsDone();
-                }
+                applyDoneFlag(event, isDone);
                 return event;
             default:
                 return null;
+        }
+    }
+
+    /**
+     * Marks the given task as done if the saved data indicates it was done.
+     *
+     * @param task   the task whose status is being restored
+     * @param isDone whether the saved data marks the task as done
+     */
+    private static void applyDoneFlag(Task task, boolean isDone) {
+        if (isDone) {
+            task.markAsDone();
         }
     }
 }

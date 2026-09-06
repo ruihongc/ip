@@ -21,9 +21,7 @@ public class DeleteCommand extends Command {
     /** {@inheritDoc} */
     @Override
     public void execute(TaskList tasks, Ui ui) throws MochiException {
-        if (index < 0 || index >= tasks.getTasks().size()) {
-            throw new MochiException("There is no task number " + (index + 1) + " in the list.");
-        }
+        tasks.requireValidIndex(index);
         Task removed = tasks.remove(index);
         ui.showDeleted(removed, tasks.getTasks().size());
     }

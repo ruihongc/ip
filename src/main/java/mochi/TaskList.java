@@ -55,6 +55,18 @@ public class TaskList {
     }
 
     /**
+     * Checks that the given 0-based index refers to a task in the list.
+     *
+     * @param index 0-based position of the task
+     * @throws MochiException if the index is out of range
+     */
+    public void requireValidIndex(int index) throws MochiException {
+        if (index < 0 || index >= tasks.size()) {
+            throw new MochiException("There is no task number " + (index + 1) + " in the list.");
+        }
+    }
+
+    /**
      * Removes the task at the given index and saves.
      *
      * @param index 0-based position of the task to remove
