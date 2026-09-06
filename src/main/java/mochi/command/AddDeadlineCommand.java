@@ -39,7 +39,8 @@ public class AddDeadlineCommand extends Command {
         } catch (DateTimeParseException e) {
             throw new MochiException("The date must be in yyyy-mm-dd format, e.g., 2019-10-15");
         }
-        tasks.add(new Deadline(description, by));
-        ui.showAdded(tasks.getTasks().get(tasks.getTasks().size() - 1), tasks.getTasks().size());
+        Deadline deadline = new Deadline(description, by);
+        tasks.add(deadline);
+        ui.showAdded(deadline, tasks.getTasks().size());
     }
 }
