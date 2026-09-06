@@ -36,6 +36,7 @@ public class TaskList {
      */
     public void add(Task... tasks) {
         for (Task task : tasks) {
+            assert task != null : "A task to be added must not be null";
             this.tasks.add(task);
         }
         storage.saveTasks(this.tasks);
@@ -48,6 +49,7 @@ public class TaskList {
      * @return the removed task
      */
     public Task remove(int index) {
+        assert index >= 0 && index < tasks.size() : "Callers must validate the index before removing";
         Task removed = tasks.remove(index);
         storage.saveTasks(tasks);
         return removed;
@@ -59,6 +61,7 @@ public class TaskList {
      * @param index 0-based position of the task
      */
     public void mark(int index) {
+        assert index >= 0 && index < tasks.size() : "Callers must validate the index before marking";
         tasks.get(index).markAsDone();
         storage.saveTasks(tasks);
     }
@@ -69,6 +72,7 @@ public class TaskList {
      * @param index 0-based position of the task
      */
     public void unmark(int index) {
+        assert index >= 0 && index < tasks.size() : "Callers must validate the index before unmarking";
         tasks.get(index).markAsNotDone();
         storage.saveTasks(tasks);
     }
