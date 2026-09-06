@@ -2,6 +2,7 @@ package mochi.ui;
 
 import java.io.PrintStream;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import mochi.task.Task;
 
@@ -76,9 +77,7 @@ public class Ui {
     public void showTaskList(List<Task> tasks) {
         out.println(LINE);
         out.println(" Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            out.println(" " + (i + 1) + "." + tasks.get(i));
-        }
+        printNumbered(tasks);
         out.println(LINE);
     }
 
@@ -132,9 +131,17 @@ public class Ui {
     public void showMatchingTasks(List<Task> matching) {
         out.println(LINE);
         out.println(" Here are the matching tasks in your list:");
-        for (int i = 0; i < matching.size(); i++) {
-            out.println(" " + (i + 1) + "." + matching.get(i));
-        }
+        printNumbered(matching);
         out.println(LINE);
+    }
+
+    /**
+     * Prints each task of the given list on its own numbered line.
+     *
+     * @param items the tasks to display, in display order
+     */
+    private void printNumbered(List<Task> items) {
+        IntStream.range(0, items.size())
+                .forEach(i -> out.println(" " + (i + 1) + "." + items.get(i)));
     }
 }

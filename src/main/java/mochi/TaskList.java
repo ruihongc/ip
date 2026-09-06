@@ -30,6 +30,18 @@ public class TaskList {
     }
 
     /**
+     * Returns the tasks whose display text contains the given keyword.
+     *
+     * @param keyword the keyword to search for
+     * @return the matching tasks in their current order
+     */
+    public List<Task> findByKeyword(String keyword) {
+        return tasks.stream()
+                .filter(task -> task.toString().contains(keyword))
+                .toList();
+    }
+
+    /**
      * Adds one or more tasks to the list and saves.
      *
      * @param tasks the tasks to add (zero or more)

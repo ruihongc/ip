@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import mochi.task.Task;
 
@@ -73,10 +74,12 @@ public class Storage {
             dir.mkdirs();
         }
 
+        String content = tasks.stream()
+                .map(Task::toFileString)
+                .collect(Collectors.joining(System.lineSeparator()));
+
         try (FileWriter writer = new FileWriter(dataFile)) {
-            for (Task task : tasks) {
-                writer.write(task.toFileString() + System.lineSeparator());
-            }
+            writer.write(content);
         } catch (IOException e) {
             System.err.println("Warning: could not save tasks to file.");
         }

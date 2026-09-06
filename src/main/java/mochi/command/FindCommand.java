@@ -1,10 +1,6 @@
 package mochi.command;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import mochi.TaskList;
-import mochi.task.Task;
 import mochi.ui.Ui;
 
 /**
@@ -25,9 +21,6 @@ public class FindCommand extends Command {
     /** {@inheritDoc} */
     @Override
     public void execute(TaskList tasks, Ui ui) {
-        List<Task> matching = tasks.getTasks().stream()
-                .filter(t -> t.toString().contains(keyword))
-                .collect(Collectors.toList());
-        ui.showMatchingTasks(matching);
+        ui.showMatchingTasks(tasks.findByKeyword(keyword));
     }
 }
