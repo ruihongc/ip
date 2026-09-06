@@ -574,3 +574,73 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
   Bye. Hope to see you again soon!
   ____________________________________________________________
   ```
+
+## Test 14: Notes (D-Notes extension)
+
+- **Aim**: Verify `note`, `notes`, `delete-note`, and `find-note` manage the
+  note list and are persisted independently of the task list.
+- **Inputs**:
+  ```
+  note waist size is 32
+  note movie to watch: interstellar
+  note buy milk
+  notes
+  delete-note 2
+  notes
+  find-note milk
+  find-note pizza
+  bye
+  ```
+- **Expected output**:
+  ```
+  ____________________________________________________________
+      __  ___           __    _
+     /  |/  /___  _____/ /_  (_)
+    / /|_/ / __ \/ ___/ __ \/ /
+   / /  / / /_/ / /__/ / / / /
+  /_/  /_/\____/\___/_/ /_/_/
+  Hello! I'm Mochi.
+  What can I do for you?
+  ____________________________________________________________
+  ____________________________________________________________
+   Got it. I've added this note:
+     waist size is 32
+   Now you have 1 notes in the list.
+  ____________________________________________________________
+  ____________________________________________________________
+   Got it. I've added this note:
+     movie to watch: interstellar
+   Now you have 2 notes in the list.
+  ____________________________________________________________
+  ____________________________________________________________
+   Got it. I've added this note:
+     buy milk
+   Now you have 3 notes in the list.
+  ____________________________________________________________
+  ____________________________________________________________
+   Here are your notes:
+   1.waist size is 32
+   2.movie to watch: interstellar
+   3.buy milk
+  ____________________________________________________________
+  ____________________________________________________________
+   Noted. I've removed this note:
+     movie to watch: interstellar
+   Now you have 2 notes in the list.
+  ____________________________________________________________
+  ____________________________________________________________
+   Here are your notes:
+   1.waist size is 32
+   2.buy milk
+  ____________________________________________________________
+  ____________________________________________________________
+   Here are the matching notes in your list:
+   1.buy milk
+  ____________________________________________________________
+  ____________________________________________________________
+   Here are the matching notes in your list:
+  ____________________________________________________________
+  ____________________________________________________________
+  Bye. Hope to see you again soon!
+  ____________________________________________________________
+  ```
