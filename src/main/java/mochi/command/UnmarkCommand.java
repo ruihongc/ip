@@ -20,9 +20,7 @@ public class UnmarkCommand extends Command {
     /** {@inheritDoc} */
     @Override
     public void execute(TaskList tasks, Ui ui) throws MochiException {
-        if (index < 0 || index >= tasks.getTasks().size()) {
-            throw new MochiException("There is no task number " + (index + 1) + " in the list.");
-        }
+        tasks.requireValidIndex(index);
         tasks.unmark(index);
         ui.showUnmarked(tasks.getTasks().get(index));
     }
