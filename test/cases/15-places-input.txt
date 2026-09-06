@@ -1,0 +1,10 @@
+place hawkerlicious /d best hokkien mee
+place cafes /d good wifi for studying
+place gym max /d closes at 10pm
+places
+view-place 2
+delete-place 3
+places
+find-place wifi
+find-place zzz
+bye

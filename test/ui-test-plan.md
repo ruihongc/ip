@@ -644,3 +644,79 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
   Bye. Hope to see you again soon!
   ____________________________________________________________
   ```
+
+## Test 15: Places (D-Places extension)
+
+- **Aim**: Verify `place`, `places`, `view-place`, `delete-place`, and
+  `find-place` manage the place list and are persisted independently of the
+  task and note lists.
+- **Inputs**:
+  ```
+  place hawkerlicious /d best hokkien mee
+  place cafes /d good wifi for studying
+  place gym max /d closes at 10pm
+  places
+  view-place 2
+  delete-place 3
+  places
+  find-place wifi
+  find-place zzz
+  bye
+  ```
+- **Expected output**:
+  ```
+  ____________________________________________________________
+      __  ___           __    _
+     /  |/  /___  _____/ /_  (_)
+    / /|_/ / __ \/ ___/ __ \/ /
+   / /  / / /_/ / /__/ / / / /
+  /_/  /_/\____/\___/_/ /_/_/
+  Hello! I'm Mochi.
+  What can I do for you?
+  ____________________________________________________________
+  ____________________________________________________________
+   Got it. I've added this place:
+     hawkerlicious
+   Now you have 1 places in the list.
+  ____________________________________________________________
+  ____________________________________________________________
+   Got it. I've added this place:
+     cafes
+   Now you have 2 places in the list.
+  ____________________________________________________________
+  ____________________________________________________________
+   Got it. I've added this place:
+     gym max
+   Now you have 3 places in the list.
+  ____________________________________________________________
+  ____________________________________________________________
+   Here are the places in your list:
+   1.hawkerlicious
+   2.cafes
+   3.gym max
+  ____________________________________________________________
+  ____________________________________________________________
+   Here are the details of cafes:
+   1.good wifi for studying
+  ____________________________________________________________
+  ____________________________________________________________
+   Noted. I've removed this place:
+     gym max
+   Now you have 2 places in the list.
+  ____________________________________________________________
+  ____________________________________________________________
+   Here are the places in your list:
+   1.hawkerlicious
+   2.cafes
+  ____________________________________________________________
+  ____________________________________________________________
+   Here are the matching places in your list:
+   1.cafes
+  ____________________________________________________________
+  ____________________________________________________________
+   Here are the matching places in your list:
+  ____________________________________________________________
+  ____________________________________________________________
+  Bye. Hope to see you again soon!
+  ____________________________________________________________
+  ```

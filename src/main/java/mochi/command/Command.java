@@ -2,6 +2,7 @@ package mochi.command;
 
 import mochi.MochiException;
 import mochi.NoteList;
+import mochi.PlaceList;
 import mochi.TaskList;
 import mochi.ui.Ui;
 
@@ -19,7 +20,7 @@ public abstract class Command {
      * @param ui    the UI for displaying output
      * @throws MochiException if the command cannot be executed
      */
-    public abstract void execute(TaskList tasks, NoteList notes, Ui ui) throws MochiException;
+    public abstract void execute(TaskList tasks, NoteList notes, PlaceList places, Ui ui) throws MochiException;
 
     /**
      * Returns whether this command causes the chatbot to exit.

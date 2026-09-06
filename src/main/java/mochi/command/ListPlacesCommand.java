@@ -6,18 +6,12 @@ import mochi.TaskList;
 import mochi.ui.Ui;
 
 /**
- * Exits the chatbot.
+ * Lists all places in the place list.
  */
-public class ExitCommand extends Command {
+public class ListPlacesCommand extends Command {
     /** {@inheritDoc} */
     @Override
     public void execute(TaskList tasks, NoteList notes, PlaceList places, Ui ui) {
-        ui.showGoodbye();
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public boolean isExit() {
-        return true;
+        ui.showPlaceList(places.getPlaces());
     }
 }

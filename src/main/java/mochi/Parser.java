@@ -3,17 +3,22 @@ package mochi;
 import mochi.command.AddDeadlineCommand;
 import mochi.command.AddEventCommand;
 import mochi.command.AddNoteCommand;
+import mochi.command.AddPlaceCommand;
 import mochi.command.AddTodoCommand;
 import mochi.command.Command;
 import mochi.command.DeleteCommand;
 import mochi.command.DeleteNoteCommand;
+import mochi.command.DeletePlaceCommand;
 import mochi.command.ExitCommand;
 import mochi.command.FindCommand;
 import mochi.command.FindNoteCommand;
+import mochi.command.FindPlaceCommand;
 import mochi.command.ListCommand;
 import mochi.command.ListNotesCommand;
+import mochi.command.ListPlacesCommand;
 import mochi.command.MarkCommand;
 import mochi.command.UnmarkCommand;
+import mochi.command.ViewPlaceCommand;
 
 /**
  * Parses user input into a {@link Command} object.
@@ -68,6 +73,19 @@ public class Parser {
                     throw new MochiException("Please give a keyword to search for, e.g., find-note movie");
                 }
                 return new FindNoteCommand(args);
+            case "place":
+                return parsePlace(args);
+            case "places":
+                return new ListPlacesCommand();
+            case "view-place":
+                return new ViewPlaceCommand(toZeroBasedIndex(args));
+            case "delete-place":
+                return new DeletePlaceCommand(toZeroBasedIndex(args));
+            case "find-place":
+                if (args.isEmpty()) {
+                    throw new MochiException("Please give a keyword to search for, e.g., find-place cafe");
+                }
+                return new FindPlaceCommand(args);
             default:
                 throw new MochiException("I'm sorry, but I don't know what that means :-(");
         }
@@ -91,6 +109,18 @@ public class Parser {
      */
     private static int toZeroBasedIndex(String args) throws MochiException {
         return parseTaskNumber(args) - 1;
+    }
+
+    private static Command parsePlace(String args) throws MochiException {
+        String[] parts = args.split(" /d ", 2);
+        if (parts[0].isEmpty()) {
+            throw new MochiException("The name of a place cannot be empty.");
+        }
+        if (parts.length < 2) {
+            throw new MochiException("Please add a detail for the place with /d, "
+                    + "e.g., place hawkerlicious /d the hokkien mee is great");
+        }
+        return new AddPlaceCommand(parts[0], parts[1]);
     }
 
     private static Command parseDeadline(String args) throws MochiException {
