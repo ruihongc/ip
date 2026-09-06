@@ -6,6 +6,7 @@ import java.time.format.DateTimeParseException;
 
 import mochi.MochiException;
 import mochi.NoteList;
+import mochi.PlaceList;
 import mochi.TaskList;
 import mochi.task.Event;
 import mochi.ui.Ui;
@@ -33,7 +34,7 @@ public class AddEventCommand extends Command {
 
     /** {@inheritDoc} */
     @Override
-    public void execute(TaskList tasks, NoteList notes, Ui ui) throws MochiException {
+    public void execute(TaskList tasks, NoteList notes, PlaceList places, Ui ui) throws MochiException {
         if (description.isEmpty()) {
             throw new MochiException("The description of an event cannot be empty.");
         }

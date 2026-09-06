@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import mochi.place.Place;
 import mochi.task.Task;
 
 /**
@@ -51,6 +52,21 @@ public class Storage {
     }
 
     /**
+     * Loads places from the data file, creating the directory and file if needed.
+     */
+    public List<Place> loadPlaces() {
+        List<Place> places = new ArrayList<>();
+        for (String line : loadLines()) {
+            try {
+                places.add(Place.fromFileString(line));
+            } catch (MochiException e) {
+                // Skip corrupted lines silently.
+            }
+        }
+        return places;
+    }
+
+    /**
      * Saves the given list of tasks to the data file.
      */
     public void saveTasks(List<Task> tasks) {
@@ -64,6 +80,15 @@ public class Storage {
      */
     public void saveNotes(List<String> notes) {
         writeLines(notes);
+    }
+
+    /**
+     * Saves the given list of places to the data file.
+     */
+    public void savePlaces(List<Place> places) {
+        writeLines(places.stream()
+                .map(Place::toFileString)
+                .collect(Collectors.toList()));
     }
 
     /**

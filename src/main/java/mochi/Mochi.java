@@ -7,21 +7,24 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 import mochi.command.Command;
+import mochi.place.Place;
 import mochi.task.Task;
 import mochi.ui.Ui;
 
 /**
  * Mochi is a chatbot that stores tasks entered by the user, lets the user
- * mark tasks as done or not done, delete them, list them, records notes,
- * reports invalid commands, and exits on "bye".
+ * mark tasks as done or not done, delete them, list them, records notes and
+ * details about places, reports invalid commands, and exits on "bye".
  */
 public class Mochi {
     private static final String DEFAULT_FILE_PATH = "data/tasks.txt";
     private static final String NOTES_FILE_NAME = "notes.txt";
+    private static final String PLACES_FILE_NAME = "places.txt";
 
     private final Storage storage;
     private final TaskList tasks;
     private final NoteList notes;
+    private final PlaceList places;
     private final Ui ui;
 
     /**
@@ -33,7 +36,8 @@ public class Mochi {
 
     /**
      * Creates a Mochi chatbot backed by the given file path for task persistence.
-     * Notes are stored next to the task file in a file named "notes.txt".
+     * Notes and places are stored next to the task file in files named
+     * "notes.txt" and "places.txt".
      *
      * @param filePath path to the file used to save and load tasks
      */
@@ -42,20 +46,24 @@ public class Mochi {
         storage = new Storage(filePath);
         tasks = new TaskList(storage);
         tasks.add(storage.loadTasks().toArray(new Task[0]));
-        Storage noteStorage = new Storage(noteFilePath(filePath));
+        Storage noteStorage = new Storage(siblingFilePath(filePath, NOTES_FILE_NAME));
         notes = new NoteList(noteStorage);
         notes.add(noteStorage.loadNotes().toArray(new String[0]));
+        Storage placeStorage = new Storage(siblingFilePath(filePath, PLACES_FILE_NAME));
+        places = new PlaceList(placeStorage);
+        places.add(placeStorage.loadPlaces().toArray(new Place[0]));
     }
 
     /**
-     * Resolves the path of the notes file as a sibling of the task file.
+     * Resolves the path of a data file stored as a sibling of the task file.
      *
      * @param taskFilePath path of the task data file
-     * @return path of the notes data file
+     * @param fileName     name of the sibling data file
+     * @return path of the sibling data file
      */
-    private static String noteFilePath(String taskFilePath) {
+    private static String siblingFilePath(String taskFilePath, String fileName) {
         Path parent = Paths.get(taskFilePath).getParent();
-        return parent == null ? NOTES_FILE_NAME : parent.resolve(NOTES_FILE_NAME).toString();
+        return parent == null ? fileName : parent.resolve(fileName).toString();
     }
 
     /**
@@ -95,7 +103,7 @@ public class Mochi {
     private boolean executeCommand(String fullCommand, Ui ui) {
         try {
             Command c = Parser.parse(fullCommand);
-            c.execute(tasks, notes, ui);
+            c.execute(tasks, notes, places, ui);
             return c.isExit();
         } catch (MochiException e) {
             ui.showError(e.getMessage());

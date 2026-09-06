@@ -1,6 +1,7 @@
 package mochi.command;
 
 import mochi.NoteList;
+import mochi.PlaceList;
 import mochi.TaskList;
 import mochi.ui.Ui;
 
@@ -21,7 +22,7 @@ public class FindNoteCommand extends Command {
 
     /** {@inheritDoc} */
     @Override
-    public void execute(TaskList tasks, NoteList notes, Ui ui) {
+    public void execute(TaskList tasks, NoteList notes, PlaceList places, Ui ui) {
         ui.showMatchingNotes(notes.findByKeyword(keyword));
     }
 }

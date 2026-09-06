@@ -2,6 +2,7 @@ package mochi.command;
 
 import mochi.MochiException;
 import mochi.NoteList;
+import mochi.PlaceList;
 import mochi.TaskList;
 import mochi.ui.Ui;
 
@@ -20,7 +21,7 @@ public class MarkCommand extends Command {
 
     /** {@inheritDoc} */
     @Override
-    public void execute(TaskList tasks, NoteList notes, Ui ui) throws MochiException {
+    public void execute(TaskList tasks, NoteList notes, PlaceList places, Ui ui) throws MochiException {
         tasks.requireValidIndex(index);
         tasks.mark(index);
         ui.showMarked(tasks.getTasks().get(index));

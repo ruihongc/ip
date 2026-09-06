@@ -4,6 +4,7 @@ import java.io.PrintStream;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import mochi.place.Place;
 import mochi.task.Task;
 
 /**
@@ -86,6 +87,13 @@ public class Ui {
     }
 
     /**
+     * Shows the full place list.
+     */
+    public void showPlaceList(List<Place> places) {
+        showNumberedList(" Here are the places in your list:", places);
+    }
+
+    /**
      * Shows the confirmation after marking a task as done.
      */
     public void showMarked(Task task) {
@@ -156,6 +164,50 @@ public class Ui {
      */
     public void showMatchingNotes(List<String> matching) {
         showNumberedList(" Here are the matching notes in your list:", matching);
+    }
+
+    /**
+     * Shows the confirmation after adding a place.
+     */
+    public void showAddedPlace(Place place, int count) {
+        out.println(LINE);
+        out.println(" Got it. I've added this place:");
+        out.println("   " + place);
+        out.println(" Now you have " + count + " places in the list.");
+        out.println(LINE);
+    }
+
+    /**
+     * Shows the confirmation after deleting a place.
+     */
+    public void showDeletedPlace(Place place, int remainingCount) {
+        out.println(LINE);
+        out.println(" Noted. I've removed this place:");
+        out.println("   " + place);
+        out.println(" Now you have " + remainingCount + " places in the list.");
+        out.println(LINE);
+    }
+
+    /**
+     * Shows the details recorded about a place.
+     *
+     * @param place the place whose details are to be shown
+     */
+    public void showPlaceDetails(Place place) {
+        out.println(LINE);
+        out.println(" Here are the details of " + place.getName() + ":");
+        IntStream.range(0, place.getDetails().size())
+                .forEach(i -> out.println(" " + (i + 1) + "." + place.getDetails().get(i)));
+        out.println(LINE);
+    }
+
+    /**
+     * Shows places that match a search keyword.
+     *
+     * @param matching the list of matching places
+     */
+    public void showMatchingPlaces(List<Place> matching) {
+        showNumberedList(" Here are the matching places in your list:", matching);
     }
 
     /**
