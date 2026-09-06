@@ -1,0 +1,9 @@
+note waist size is 32
+note movie to watch: interstellar
+note buy milk
+notes
+delete-note 2
+notes
+find-note milk
+find-note pizza
+bye

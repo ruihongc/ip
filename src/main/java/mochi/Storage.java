@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 import mochi.task.Task;
 
 /**
- * Handles loading tasks from and saving tasks to a file on disk.
+ * Handles loading and saving data to files on disk.
  */
 public class Storage {
     private final File dataFile;
@@ -30,59 +30,99 @@ public class Storage {
      */
     public List<Task> loadTasks() {
         List<Task> tasks = new ArrayList<>();
-
-        File dir = dataFile.getParentFile();
-        if (dir != null && !dir.exists()) {
-            dir.mkdirs();
-        }
-
-        if (!dataFile.exists()) {
+        for (String line : loadLines()) {
             try {
-                dataFile.createNewFile();
-            } catch (IOException e) {
-                return tasks;
-            }
-        }
-
-        try (Scanner scanner = new Scanner(dataFile)) {
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine().trim();
-                if (line.isEmpty()) {
-                    continue;
+                Task task = Task.fromFileString(line);
+                if (task != null) {
+                    tasks.add(task);
                 }
-                try {
-                    Task task = Task.fromFileString(line);
-                    if (task != null) {
-                        tasks.add(task);
-                    }
-                } catch (MochiException e) {
-                    // Skip corrupted lines silently.
-                }
+            } catch (MochiException e) {
+                // Skip corrupted lines silently.
             }
-        } catch (FileNotFoundException e) {
-            // File does not exist yet; return an empty list.
         }
         return tasks;
+    }
+
+    /**
+     * Loads notes from the data file, creating the directory and file if needed.
+     */
+    public List<String> loadNotes() {
+        return loadLines();
     }
 
     /**
      * Saves the given list of tasks to the data file.
      */
     public void saveTasks(List<Task> tasks) {
-        File dir = dataFile.getParentFile();
-        if (dir != null && !dir.exists()) {
-            dir.mkdirs();
-        }
-        assert dir == null || dir.exists() : "The data directory must exist before saving";
-
-        String content = tasks.stream()
+        writeLines(tasks.stream()
                 .map(Task::toFileString)
-                .collect(Collectors.joining(System.lineSeparator()));
+                .collect(Collectors.toList()));
+    }
+
+    /**
+     * Saves the given list of notes to the data file.
+     */
+    public void saveNotes(List<String> notes) {
+        writeLines(notes);
+    }
+
+    /**
+     * Reads the non-empty lines of the data file, creating the directory and
+     * file if needed.
+     *
+     * @return the file lines in order
+     */
+    private List<String> loadLines() {
+        List<String> lines = new ArrayList<>();
+
+        ensureDataFileExists();
+
+        try (Scanner scanner = new Scanner(dataFile)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine().trim();
+                if (!line.isEmpty()) {
+                    lines.add(line);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            // File does not exist yet; return an empty list.
+        }
+        return lines;
+    }
+
+    /**
+     * Writes the given lines, one per line, to the data file.
+     *
+     * @param lines the lines to write in order
+     */
+    private void writeLines(List<String> lines) {
+        ensureDataFileExists();
+        assert dataFile.getParentFile() == null || dataFile.getParentFile().exists()
+                : "The data directory must exist before saving";
+
+        String content = String.join(System.lineSeparator(), lines);
 
         try (FileWriter writer = new FileWriter(dataFile)) {
             writer.write(content);
         } catch (IOException e) {
-            System.err.println("Warning: could not save tasks to file.");
+            System.err.println("Warning: could not save data to file.");
+        }
+    }
+
+    /**
+     * Creates the parent directory and the data file if they do not exist yet.
+     */
+    private void ensureDataFileExists() {
+        File dir = dataFile.getParentFile();
+        if (dir != null && !dir.exists()) {
+            dir.mkdirs();
+        }
+        if (!dataFile.exists()) {
+            try {
+                dataFile.createNewFile();
+            } catch (IOException e) {
+                // Leave the file missing; callers handle it gracefully.
+            }
         }
     }
 }

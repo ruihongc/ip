@@ -1,6 +1,7 @@
 package mochi.command;
 
 import mochi.MochiException;
+import mochi.NoteList;
 import mochi.TaskList;
 import mochi.task.Todo;
 import mochi.ui.Ui;
@@ -21,7 +22,7 @@ public class AddTodoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) throws MochiException {
+    public void execute(TaskList tasks, NoteList notes, Ui ui) throws MochiException {
         if (description.isEmpty()) {
             throw new MochiException("The description of a todo cannot be empty.");
         }

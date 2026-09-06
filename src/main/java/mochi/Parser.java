@@ -2,12 +2,16 @@ package mochi;
 
 import mochi.command.AddDeadlineCommand;
 import mochi.command.AddEventCommand;
+import mochi.command.AddNoteCommand;
 import mochi.command.AddTodoCommand;
 import mochi.command.Command;
 import mochi.command.DeleteCommand;
+import mochi.command.DeleteNoteCommand;
 import mochi.command.ExitCommand;
 import mochi.command.FindCommand;
+import mochi.command.FindNoteCommand;
 import mochi.command.ListCommand;
+import mochi.command.ListNotesCommand;
 import mochi.command.MarkCommand;
 import mochi.command.UnmarkCommand;
 
@@ -50,6 +54,20 @@ public class Parser {
                     throw new MochiException("Please give a keyword to search for, e.g., find book");
                 }
                 return new FindCommand(args);
+            case "note":
+                if (args.isEmpty()) {
+                    throw new MochiException("Please give a note to record, e.g., note my waist size is 32");
+                }
+                return new AddNoteCommand(args);
+            case "notes":
+                return new ListNotesCommand();
+            case "delete-note":
+                return new DeleteNoteCommand(toZeroBasedIndex(args));
+            case "find-note":
+                if (args.isEmpty()) {
+                    throw new MochiException("Please give a keyword to search for, e.g., find-note movie");
+                }
+                return new FindNoteCommand(args);
             default:
                 throw new MochiException("I'm sorry, but I don't know what that means :-(");
         }

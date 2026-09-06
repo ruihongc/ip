@@ -79,6 +79,13 @@ public class Ui {
     }
 
     /**
+     * Shows the full note list.
+     */
+    public void showNoteList(List<String> notes) {
+        showNumberedList(" Here are your notes:", notes);
+    }
+
+    /**
      * Shows the confirmation after marking a task as done.
      */
     public void showMarked(Task task) {
@@ -121,6 +128,37 @@ public class Ui {
     }
 
     /**
+     * Shows the confirmation after adding a note.
+     */
+    public void showAddedNote(String note, int count) {
+        out.println(LINE);
+        out.println(" Got it. I've added this note:");
+        out.println("   " + note);
+        out.println(" Now you have " + count + " notes in the list.");
+        out.println(LINE);
+    }
+
+    /**
+     * Shows the confirmation after deleting a note.
+     */
+    public void showDeletedNote(String note, int remainingCount) {
+        out.println(LINE);
+        out.println(" Noted. I've removed this note:");
+        out.println("   " + note);
+        out.println(" Now you have " + remainingCount + " notes in the list.");
+        out.println(LINE);
+    }
+
+    /**
+     * Shows notes that match a search keyword.
+     *
+     * @param matching the list of matching notes
+     */
+    public void showMatchingNotes(List<String> matching) {
+        showNumberedList(" Here are the matching notes in your list:", matching);
+    }
+
+    /**
      * Shows tasks that match a search keyword.
      *
      * @param matching the list of matching tasks
@@ -130,12 +168,12 @@ public class Ui {
     }
 
     /**
-     * Shows a numbered list of tasks under a heading, delimited by divider lines.
+     * Shows a numbered list of items under a heading, delimited by divider lines.
      *
      * @param heading the heading line to print above the list
-     * @param items   the tasks to display, in display order
+     * @param items   the items to display, in display order
      */
-    private void showNumberedList(String heading, List<Task> items) {
+    private void showNumberedList(String heading, List<?> items) {
         out.println(LINE);
         out.println(heading);
         IntStream.range(0, items.size())

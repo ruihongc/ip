@@ -1,6 +1,7 @@
 package mochi.command;
 
 import mochi.MochiException;
+import mochi.NoteList;
 import mochi.TaskList;
 import mochi.ui.Ui;
 
@@ -19,7 +20,7 @@ public class UnmarkCommand extends Command {
 
     /** {@inheritDoc} */
     @Override
-    public void execute(TaskList tasks, Ui ui) throws MochiException {
+    public void execute(TaskList tasks, NoteList notes, Ui ui) throws MochiException {
         tasks.requireValidIndex(index);
         tasks.unmark(index);
         ui.showUnmarked(tasks.getTasks().get(index));
