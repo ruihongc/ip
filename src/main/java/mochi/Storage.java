@@ -72,6 +72,7 @@ public class Storage {
         if (dir != null && !dir.exists()) {
             dir.mkdirs();
         }
+        assert dir == null || dir.exists() : "The data directory must exist before saving";
 
         try (FileWriter writer = new FileWriter(dataFile)) {
             for (Task task : tasks) {
