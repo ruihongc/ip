@@ -2,6 +2,7 @@ package mochi.ui;
 
 import java.io.PrintStream;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import mochi.task.Task;
 
@@ -137,9 +138,8 @@ public class Ui {
     private void showNumberedList(String heading, List<Task> items) {
         out.println(LINE);
         out.println(heading);
-        for (int i = 0; i < items.size(); i++) {
-            out.println(" " + (i + 1) + "." + items.get(i));
-        }
+        IntStream.range(0, items.size())
+                .forEach(i -> out.println(" " + (i + 1) + "." + items.get(i)));
         out.println(LINE);
     }
 }
