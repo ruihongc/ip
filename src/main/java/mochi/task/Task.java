@@ -16,6 +16,8 @@ public class Task {
     protected boolean isDone;
 
     protected Task(TaskType type, String description) {
+        assert type != null : "A task must have a type";
+        assert description != null : "A task must have a description";
         this.type = type;
         this.description = description;
         this.isDone = false;
