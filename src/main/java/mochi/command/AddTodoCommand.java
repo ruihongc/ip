@@ -25,7 +25,8 @@ public class AddTodoCommand extends Command {
         if (description.isEmpty()) {
             throw new MochiException("The description of a todo cannot be empty.");
         }
-        tasks.add(new Todo(description));
-        ui.showAdded(tasks.getTasks().get(tasks.getTasks().size() - 1), tasks.getTasks().size());
+        Todo todo = new Todo(description);
+        tasks.add(todo);
+        ui.showAdded(todo, tasks.getTasks().size());
     }
 }

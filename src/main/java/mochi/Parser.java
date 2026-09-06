@@ -34,11 +34,11 @@ public class Parser {
             case "list":
                 return new ListCommand();
             case "mark":
-                return new MarkCommand(parseTaskNumber(args) - 1);
+                return new MarkCommand(toZeroBasedIndex(args));
             case "unmark":
-                return new UnmarkCommand(parseTaskNumber(args) - 1);
+                return new UnmarkCommand(toZeroBasedIndex(args));
             case "delete":
-                return new DeleteCommand(parseTaskNumber(args) - 1);
+                return new DeleteCommand(toZeroBasedIndex(args));
             case "todo":
                 return new AddTodoCommand(args);
             case "deadline":
@@ -61,6 +61,18 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new MochiException("Please give a task number, e.g., mark 2");
         }
+    }
+
+    /**
+     * Converts a 1-based task number typed by the user into a 0-based index
+     * used internally by the task list.
+     *
+     * @param args the task number as typed by the user
+     * @return the corresponding 0-based index
+     * @throws MochiException if the input is not a valid task number
+     */
+    private static int toZeroBasedIndex(String args) throws MochiException {
+        return parseTaskNumber(args) - 1;
     }
 
     private static Command parseDeadline(String args) throws MochiException {
