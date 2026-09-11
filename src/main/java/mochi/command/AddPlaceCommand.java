@@ -1,5 +1,6 @@
 package mochi.command;
 
+import mochi.MochiException;
 import mochi.NoteList;
 import mochi.PlaceList;
 import mochi.TaskList;
@@ -26,7 +27,10 @@ public class AddPlaceCommand extends Command {
 
     /** {@inheritDoc} */
     @Override
-    public void execute(TaskList tasks, NoteList notes, PlaceList places, Ui ui) {
+    public void execute(TaskList tasks, NoteList notes, PlaceList places, Ui ui) throws MochiException {
+        if (places.containsName(name)) {
+            throw new MochiException("You already have a place named \"" + name + "\".");
+        }
         Place place = new Place(name, detail);
         places.add(place);
         ui.showAddedPlace(place, places.getPlaces().size());

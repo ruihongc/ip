@@ -33,9 +33,13 @@ public class Parser {
      * @throws MochiException if the input is invalid or unrecognised
      */
     public static Command parse(String fullCommand) throws MochiException {
-        int spaceIndex = fullCommand.indexOf(' ');
-        String verb = spaceIndex == -1 ? fullCommand : fullCommand.substring(0, spaceIndex);
-        String args = spaceIndex == -1 ? "" : fullCommand.substring(spaceIndex + 1);
+        String command = fullCommand.trim();
+        if (command.isEmpty()) {
+            throw new MochiException("The command cannot be empty.");
+        }
+        int spaceIndex = command.indexOf(' ');
+        String verb = spaceIndex == -1 ? command : command.substring(0, spaceIndex);
+        String args = spaceIndex == -1 ? "" : collapseSpaces(command.substring(spaceIndex + 1));
 
         switch (verb) {
             case "bye":
@@ -43,12 +47,15 @@ public class Parser {
             case "list":
                 return new ListCommand();
             case "mark":
-                return new MarkCommand(toZeroBasedIndex(args));
+                return new MarkCommand(toZeroBasedIndex(args, "task", "mark 2"));
             case "unmark":
-                return new UnmarkCommand(toZeroBasedIndex(args));
+                return new UnmarkCommand(toZeroBasedIndex(args, "task", "unmark 1"));
             case "delete":
-                return new DeleteCommand(toZeroBasedIndex(args));
+                return new DeleteCommand(toZeroBasedIndex(args, "task", "delete 3"));
             case "todo":
+                if (args.isEmpty()) {
+                    throw new MochiException("The description of a todo cannot be empty.");
+                }
                 return new AddTodoCommand(args);
             case "deadline":
                 return parseDeadline(args);
@@ -67,7 +74,7 @@ public class Parser {
             case "notes":
                 return new ListNotesCommand();
             case "delete-note":
-                return new DeleteNoteCommand(toZeroBasedIndex(args));
+                return new DeleteNoteCommand(toZeroBasedIndex(args, "note", "delete-note 2"));
             case "find-note":
                 if (args.isEmpty()) {
                     throw new MochiException("Please give a keyword to search for, e.g., find-note movie");
@@ -78,9 +85,9 @@ public class Parser {
             case "places":
                 return new ListPlacesCommand();
             case "view-place":
-                return new ViewPlaceCommand(toZeroBasedIndex(args));
+                return new ViewPlaceCommand(toZeroBasedIndex(args, "place", "view-place 2"));
             case "delete-place":
-                return new DeletePlaceCommand(toZeroBasedIndex(args));
+                return new DeletePlaceCommand(toZeroBasedIndex(args, "place", "delete-place 2"));
             case "find-place":
                 if (args.isEmpty()) {
                     throw new MochiException("Please give a keyword to search for, e.g., find-place cafe");
@@ -91,63 +98,104 @@ public class Parser {
         }
     }
 
-    private static int parseTaskNumber(String input) throws MochiException {
-        try {
-            return Integer.parseInt(input.trim());
-        } catch (NumberFormatException e) {
-            throw new MochiException("Please give a task number, e.g., mark 2");
-        }
+    /**
+     * Collapses runs of whitespace in the given text into single spaces.
+     *
+     * @param input the raw text to normalise
+     * @return the text with single spaces and no leading or trailing whitespace
+     */
+    private static String collapseSpaces(String input) {
+        return input.replaceAll("\\s+", " ").trim();
     }
 
     /**
-     * Converts a 1-based task number typed by the user into a 0-based index
-     * used internally by the task list.
+     * Converts a 1-based number typed by the user into a 0-based index used
+     * internally by the lists, with an error message tailored to the list being
+     * addressed.
      *
-     * @param args the task number as typed by the user
+     * @param args    the number as typed by the user
+     * @param noun    the kind of item being indexed, e.g., "task"
+     * @param example an example command showing the correct usage
      * @return the corresponding 0-based index
-     * @throws MochiException if the input is not a valid task number
+     * @throws MochiException if the input is not a single valid number
      */
-    private static int toZeroBasedIndex(String args) throws MochiException {
-        return parseTaskNumber(args) - 1;
+    private static int toZeroBasedIndex(String args, String noun, String example) throws MochiException {
+        try {
+            return Integer.parseInt(args.trim()) - 1;
+        } catch (NumberFormatException e) {
+            throw new MochiException("Please give a " + noun + " number, e.g., " + example);
+        }
     }
 
     private static Command parsePlace(String args) throws MochiException {
         String[] parts = args.split(" /d ", 2);
-        if (parts[0].isEmpty()) {
+        String name = parts[0].trim();
+        if (name.isEmpty()) {
             throw new MochiException("The name of a place cannot be empty.");
         }
         if (parts.length < 2) {
             throw new MochiException("Please add a detail for the place with /d, "
                     + "e.g., place hawkerlicious /d the hokkien mee is great");
         }
-        return new AddPlaceCommand(parts[0], parts[1]);
+        if (parts[1].contains(" /d ")) {
+            throw new MochiException("Please give the detail only once, "
+                    + "e.g., place hawkerlicious /d the hokkien mee is great");
+        }
+        String detail = parts[1].trim();
+        if (detail.isEmpty()) {
+            throw new MochiException("The detail of a place cannot be empty.");
+        }
+        return new AddPlaceCommand(name, detail);
     }
 
     private static Command parseDeadline(String args) throws MochiException {
         String[] parts = args.split(" /by ", 2);
-        if (parts[0].isEmpty()) {
+        String description = parts[0].trim();
+        if (description.isEmpty()) {
             throw new MochiException("The description of a deadline cannot be empty.");
         }
         if (parts.length < 2) {
             throw new MochiException("Please add the deadline with /by, e.g., deadline return book /by Sunday");
         }
-        return new AddDeadlineCommand(parts[0], parts[1]);
+        if (parts[1].contains(" /by ")) {
+            throw new MochiException("Please give the deadline date only once, "
+                    + "e.g., deadline return book /by 2019-12-02");
+        }
+        String by = parts[1].trim();
+        if (by.isEmpty()) {
+            throw new MochiException("The deadline date cannot be empty.");
+        }
+        return new AddDeadlineCommand(description, by);
     }
 
     private static Command parseEvent(String args) throws MochiException {
         String[] fromParts = args.split(" /from ", 2);
-        if (fromParts[0].isEmpty()) {
+        String description = fromParts[0].trim();
+        if (description.isEmpty()) {
             throw new MochiException("The description of an event cannot be empty.");
         }
         if (fromParts.length < 2) {
             throw new MochiException("Please add the start time with /from, "
                     + "e.g., event project meeting /from Mon 2pm /to 4pm");
         }
+        if (fromParts[1].contains(" /from ")) {
+            throw new MochiException("Please give the start time only once, "
+                    + "e.g., event project meeting /from Mon 2pm /to 4pm");
+        }
         String[] toParts = fromParts[1].split(" /to ", 2);
+        String from = toParts[0].trim();
         if (toParts.length < 2) {
             throw new MochiException("Please add the end time with /to, "
                     + "e.g., event project meeting /from Mon 2pm /to 4pm");
         }
-        return new AddEventCommand(fromParts[0], toParts[0], toParts[1]);
+        if (toParts[1].contains(" /to ")) {
+            throw new MochiException("Please give the end time only once, "
+                    + "e.g., event project meeting /from Mon 2pm /to 4pm");
+        }
+        String to = toParts[1].trim();
+        if (from.isEmpty() || to.isEmpty()) {
+            throw new MochiException("The start and end times of an event cannot be empty.");
+        }
+        return new AddEventCommand(description, from, to);
     }
 }
