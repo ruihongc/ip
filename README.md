@@ -1,31 +1,50 @@
-# Mochi project template
+# Mochi
 
-This is a project template for a greenfield Java project. It's named after my chatbot, _Mochi_. Given below are instructions on how to use it.
+> **Nya~** A friendly cat assistant that helps you keep track of your day.
 
-## Setting up in Intellij
+Mochi is a desktop chatbot that stores the **tasks** you need to do (todos,
+deadlines, and events), lets you keep free-form **notes**, and remembers
+details about **places** you like. It runs as a JavaFX GUI and saves everything
+automatically to your computer.
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+- The **User Guide** is available at [Mochi User Guide](docs/README.md).
+- A text-mode interface is also included and exercised by the test suite.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Mochi.java` file, right-click it, and choose `Run Mochi.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   ____________________________________________________________
-       __  ___           __    _
-      /  |/  /___  _____/ /_  (_)
-     / /|_/ / __ \/ ___/ __ \/ /
-    / /  / / /_/ / /__/ / / / /
-   /_/  /_/\____/\___/_/ /_/_/
-   Hello! I'm Mochi.
-   What can I do for you?
-   ____________________________________________________________
-   Bye. Hope to see you again soon!
-   ____________________________________________________________
-   ```
+## Quick start
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+1. Ensure you have **Java 25** installed.
+2. Download the latest release of `mochi.jar`.
+3. Run `java -jar mochi.jar`.
+4. Type a command (e.g., `todo return book`) and press `Enter`.
+5. Type `bye` to exit.
+
+For the full list of commands, refer to the [User Guide](docs/README.md).
+
+## Setting up the project in IntelliJ
+
+Prerequisites: JDK 25, a recent version of IntelliJ IDEA.
+
+1. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close
+   Project` to close the existing project first).
+1. Click `Open` and select the project directory.
+1. Configure the project to use **JDK 25** as explained
+   [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk). In the same
+   dialog, set the **Project language level** field to the `SDK default`
+   option.
+1. Run `src/main/java/mochi/gui/Launcher.java` to start the GUI, or
+   `src/main/java/mochi/Mochi.java` for the text-mode chatbot.
+
+**Warning:** Keep the `src/main/java` folder as the root folder for Java files
+(i.e., don't rename those folders or move Java files to another folder outside
+of this folder path), as this is the default location some tools (e.g.,
+Gradle) expect to find Java files.
+
+## Credit / Citation
+
+This project started from the [SE-EDU initiative](https://se-education.org) IP
+project template (originally named _Duke_) and follows the individual project
+framework taught in the CS2103T software engineering course at NUS. The JavaFX
+GUI structure follows the SE-EDU JavaFX tutorial for chat-based bots. The user
+and assistant profile pictures (`DaUser.png`, `DaMochi.png`) are adapted from
+the images provided in the CS2103T module materials. All other code is written
+by the author for this project.
