@@ -19,6 +19,10 @@ import javafx.scene.layout.HBox;
  * speaker's face and a label containing text from the speaker.
  */
 public class DialogBox extends HBox {
+    private static final double USER_IMAGE_SIZE = 60;
+    private static final double MOCHI_IMAGE_SIZE = 100;
+    private static final String ERROR_PREFIX = "Nya-no!!!";
+
     @FXML
     private Label dialog;
     @FXML
@@ -50,22 +54,29 @@ public class DialogBox extends HBox {
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
-        getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
     }
 
     /**
      * Returns a dialog box for user input, with the image on the right.
+     * The user's bubble is styled in blue and uses a smaller font and picture
+     * than Mochi's bubble, giving the two speakers differently sized bubbles.
      *
      * @param text the user's input text
      * @param img  the image representing the user
      */
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
+        db.getStyleClass().add("dialog-user");
+        db.dialog.getStyleClass().add("bubble-user");
+        db.displayPicture.setFitWidth(USER_IMAGE_SIZE);
+        db.displayPicture.setFitHeight(USER_IMAGE_SIZE);
+        return db;
     }
 
     /**
      * Returns a dialog box for Mochi's reply, with the image on the left.
+     * Error replies are highlighted in red with their own bubble style.
      *
      * @param text the reply text
      * @param img  the image representing Mochi
@@ -73,6 +84,14 @@ public class DialogBox extends HBox {
     public static DialogBox getMochiDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
         db.flip();
+        db.getStyleClass().add("dialog-mochi");
+        if (text.contains(ERROR_PREFIX)) {
+            db.dialog.getStyleClass().add("bubble-error");
+        } else {
+            db.dialog.getStyleClass().add("bubble-mochi");
+        }
+        db.displayPicture.setFitWidth(MOCHI_IMAGE_SIZE);
+        db.displayPicture.setFitHeight(MOCHI_IMAGE_SIZE);
         return db;
     }
 }

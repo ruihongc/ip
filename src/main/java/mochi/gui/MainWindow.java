@@ -34,8 +34,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().add(DialogBox.getMochiDialog("Hello! I'm Mochi.\nWhat can I do for you?",
-                mochiImage));
+        dialogContainer.getChildren().add(DialogBox.getMochiDialog(
+                "Nya~ Hello! I'm Mochi!\nI'll help you keep your life organised~", mochiImage));
     }
 
     /**
