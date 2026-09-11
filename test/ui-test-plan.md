@@ -4,6 +4,12 @@ This plan records the test cases used to verify Mochi's text output.
 Run them with the `test-ui` skill (`.codex/skills/test-ui/test-ui.ps1`).
 Machine-readable input/expected file pairs for each case are in `test/cases/`.
 
+> **Personality (A-Personality):** Mochi is a friendly cat assistant. All user
+> messages use a playful cat voice: greetings are new with `nya~` and `Purr~`,
+> errors are prefixed `Nya-no!!!` instead of `OOPS!!!`, and count lines read
+> `You now have N tasks~` / `You have N tasks left nya~` with correct
+> singular/plural wording.
+
 > **GUI (Level-10):** The application now launches a JavaFX GUI via the
 > `mochi.gui.Launcher` entry point. The text UI below is preserved and still
 > exercised by these test cases. The GUI reuses the same responses through
@@ -11,7 +17,7 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
 
 ## Test 1: Greeting and exit
 
-- **Aim**: Verify Mochi greets the user and says goodbye on `bye`.
+- **Aim**: Verify Mochi greets the user in its cat voice and says goodbye on `bye`.
 - **Inputs**:
   ```
   bye
@@ -24,10 +30,11 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
     / /|_/ / __ \/ ___/ __ \/ /
    / /  / / /_/ / /__/ / / / /
   /_/  /_/\____/\___/_/ /_/_/
-  Hello! I'm Mochi.
-  What can I do for you?
+  Nya~ Hello! I'm Mochi!
+  I'll help you keep your life organised~
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  ____________________________________________________________
+  Purr~ See you next time!
   ____________________________________________________________
   ```
 
@@ -51,32 +58,32 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
     / /|_/ / __ \/ ___/ __ \/ /
    / /  / / /_/ / /__/ / / / /
   /_/  /_/\____/\___/_/ /_/_/
-  Hello! I'm Mochi.
-  What can I do for you?
+  Nya~ Hello! I'm Mochi!
+  I'll help you keep your life organised~
   ____________________________________________________________
   ____________________________________________________________
-   Got it. I've added this task:
+   Got it! I've added this task nya~
      [T][ ] borrow book
-   Now you have 1 tasks in the list.
+   You now have 1 task in the list~
   ____________________________________________________________
   ____________________________________________________________
-   Got it. I've added this task:
+   Got it! I've added this task nya~
      [D][ ] return book (by: Dec 2 2019)
-   Now you have 2 tasks in the list.
+   You now have 2 tasks in the list~
   ____________________________________________________________
   ____________________________________________________________
-   Got it. I've added this task:
+   Got it! I've added this task nya~
      [E][ ] project meeting (from: Oct 15 2019 to: Oct 16 2019)
-   Now you have 3 tasks in the list.
+   You now have 3 tasks in the list~
   ____________________________________________________________
   ____________________________________________________________
-   Here are the tasks in your list:
+   Here are the tasks in your list nya~
    1.[T][ ] borrow book
    2.[D][ ] return book (by: Dec 2 2019)
    3.[E][ ] project meeting (from: Oct 15 2019 to: Oct 16 2019)
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Purr~ See you next time!
   ____________________________________________________________
   ```
 
@@ -101,39 +108,39 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
     / /|_/ / __ \/ ___/ __ \/ /
    / /  / / /_/ / /__/ / / / /
   /_/  /_/\____/\___/_/ /_/_/
-  Hello! I'm Mochi.
-  What can I do for you?
+  Nya~ Hello! I'm Mochi!
+  I'll help you keep your life organised~
   ____________________________________________________________
   ____________________________________________________________
-   Got it. I've added this task:
+   Got it! I've added this task nya~
      [T][ ] read book
-   Now you have 1 tasks in the list.
+   You now have 1 task in the list~
   ____________________________________________________________
   ____________________________________________________________
-   Got it. I've added this task:
+   Got it! I've added this task nya~
      [T][ ] return book
-   Now you have 2 tasks in the list.
+   You now have 2 tasks in the list~
   ____________________________________________________________
   ____________________________________________________________
-   Nice! I've marked this task as done:
+   Purr~ I've marked this task as done:
      [T][X] return book
   ____________________________________________________________
   ____________________________________________________________
-   Here are the tasks in your list:
+   Here are the tasks in your list nya~
    1.[T][ ] read book
    2.[T][X] return book
   ____________________________________________________________
   ____________________________________________________________
-   OK, I've marked this task as not done yet:
+   OK~ I've unmarked this task:
      [T][ ] return book
   ____________________________________________________________
   ____________________________________________________________
-   Here are the tasks in your list:
+   Here are the tasks in your list nya~
    1.[T][ ] read book
    2.[T][ ] return book
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Purr~ See you next time!
   ____________________________________________________________
   ```
 
@@ -154,20 +161,20 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
     / /|_/ / __ \/ ___/ __ \/ /
    / /  / / /_/ / /__/ / / / /
   /_/  /_/\____/\___/_/ /_/_/
-  Hello! I'm Mochi.
-  What can I do for you?
+  Nya~ Hello! I'm Mochi!
+  I'll help you keep your life organised~
   ____________________________________________________________
   ____________________________________________________________
-   Got it. I've added this task:
+   Got it! I've added this task nya~
      [D][ ] do homework (by: Oct 15 2019)
-   Now you have 1 tasks in the list.
+   You now have 1 task in the list~
   ____________________________________________________________
   ____________________________________________________________
-   Here are the tasks in your list:
+   Here are the tasks in your list nya~
    1.[D][ ] do homework (by: Oct 15 2019)
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Purr~ See you next time!
   ____________________________________________________________
   ```
 
@@ -187,14 +194,14 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
     / /|_/ / __ \/ ___/ __ \/ /
    / /  / / /_/ / /__/ / / / /
   /_/  /_/\____/\___/_/ /_/_/
-  Hello! I'm Mochi.
-  What can I do for you?
+  Nya~ Hello! I'm Mochi!
+  I'll help you keep your life organised~
   ____________________________________________________________
   ____________________________________________________________
-   Here are the tasks in your list:
+   Here are the tasks in your list nya~
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Purr~ See you next time!
   ____________________________________________________________
   ```
 
@@ -224,41 +231,41 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
     / /|_/ / __ \/ ___/ __ \/ /
    / /  / / /_/ / /__/ / / / /
   /_/  /_/\____/\___/_/ /_/_/
-  Hello! I'm Mochi.
-  What can I do for you?
+  Nya~ Hello! I'm Mochi!
+  I'll help you keep your life organised~
   ____________________________________________________________
   ____________________________________________________________
-   Got it. I've added this task:
+   Got it! I've added this task nya~
      [T][ ] read book
-   Now you have 1 tasks in the list.
+   You now have 1 task in the list~
   ____________________________________________________________
   ____________________________________________________________
-   OOPS!!! I'm sorry, but I don't know what that means :-(
+   Nya-no!!! I'm sorry, but I don't know what that means :-(
   ____________________________________________________________
   ____________________________________________________________
-   OOPS!!! The description of a todo cannot be empty.
+   Nya-no!!! The description of a todo cannot be empty.
   ____________________________________________________________
   ____________________________________________________________
-   OOPS!!! Please give a task number, e.g., mark 2
+   Nya-no!!! Please give a task number, e.g., mark 2
   ____________________________________________________________
   ____________________________________________________________
-   OOPS!!! There is no task number 5 in the list.
+   Nya-no!!! There is no task number 5 in the list.
   ____________________________________________________________
   ____________________________________________________________
-   OOPS!!! Please add the deadline with /by, e.g., deadline return book /by Sunday
+   Nya-no!!! Please add the deadline with /by, e.g., deadline return book /by Sunday
   ____________________________________________________________
   ____________________________________________________________
-   OOPS!!! Please add the start time with /from, e.g., event project meeting /from Mon 2pm /to 4pm
+   Nya-no!!! Please add the start time with /from, e.g., event project meeting /from Mon 2pm /to 4pm
   ____________________________________________________________
   ____________________________________________________________
-   OOPS!!! Please add the end time with /to, e.g., event project meeting /from Mon 2pm /to 4pm
+   Nya-no!!! Please add the end time with /to, e.g., event project meeting /from Mon 2pm /to 4pm
   ____________________________________________________________
   ____________________________________________________________
-   Here are the tasks in your list:
+   Here are the tasks in your list nya~
    1.[T][ ] read book
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Purr~ See you next time!
   ____________________________________________________________
   ```
 
@@ -281,23 +288,23 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
     / /|_/ / __ \/ ___/ __ \/ /
    / /  / / /_/ / /__/ / / / /
   /_/  /_/\____/\___/_/ /_/_/
-  Hello! I'm Mochi.
-  What can I do for you?
+  Nya~ Hello! I'm Mochi!
+  I'll help you keep your life organised~
   ____________________________________________________________
   ____________________________________________________________
-   OOPS!!! The description of a todo cannot be empty.
+   Nya-no!!! The description of a todo cannot be empty.
   ____________________________________________________________
   ____________________________________________________________
-   OOPS!!! The description of a deadline cannot be empty.
+   Nya-no!!! The description of a deadline cannot be empty.
   ____________________________________________________________
   ____________________________________________________________
-   OOPS!!! The description of an event cannot be empty.
+   Nya-no!!! The description of an event cannot be empty.
   ____________________________________________________________
   ____________________________________________________________
-   Here are the tasks in your list:
+   Here are the tasks in your list nya~
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Purr~ See you next time!
   ____________________________________________________________
   ```
 
@@ -325,36 +332,36 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
     / /|_/ / __ \/ ___/ __ \/ /
    / /  / / /_/ / /__/ / / / /
   /_/  /_/\____/\___/_/ /_/_/
-  Hello! I'm Mochi.
-  What can I do for you?
+  Nya~ Hello! I'm Mochi!
+  I'll help you keep your life organised~
   ____________________________________________________________
   ____________________________________________________________
-   Got it. I've added this task:
+   Got it! I've added this task nya~
      [T][ ] read book
-   Now you have 1 tasks in the list.
+   You now have 1 task in the list~
   ____________________________________________________________
   ____________________________________________________________
-   Got it. I've added this task:
+   Got it! I've added this task nya~
      [D][ ] return book (by: Jun 6 2019)
-   Now you have 2 tasks in the list.
+   You now have 2 tasks in the list~
   ____________________________________________________________
   ____________________________________________________________
-   Got it. I've added this task:
+   Got it! I've added this task nya~
      [E][ ] project meeting (from: Aug 6 2019 to: Aug 7 2019)
-   Now you have 3 tasks in the list.
+   You now have 3 tasks in the list~
   ____________________________________________________________
   ____________________________________________________________
-   Got it. I've added this task:
+   Got it! I've added this task nya~
      [T][ ] join sports club
-   Now you have 4 tasks in the list.
+   You now have 4 tasks in the list~
   ____________________________________________________________
   ____________________________________________________________
-   Got it. I've added this task:
+   Got it! I've added this task nya~
      [T][ ] borrow book
-   Now you have 5 tasks in the list.
+   You now have 5 tasks in the list~
   ____________________________________________________________
   ____________________________________________________________
-   Here are the tasks in your list:
+   Here are the tasks in your list nya~
    1.[T][ ] read book
    2.[D][ ] return book (by: Jun 6 2019)
    3.[E][ ] project meeting (from: Aug 6 2019 to: Aug 7 2019)
@@ -362,19 +369,19 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
    5.[T][ ] borrow book
   ____________________________________________________________
   ____________________________________________________________
-   Noted. I've removed this task:
+   Nya~ I've removed this task:
      [E][ ] project meeting (from: Aug 6 2019 to: Aug 7 2019)
-   Now you have 4 tasks in the list.
+   You have 4 tasks left nya~
   ____________________________________________________________
   ____________________________________________________________
-   Here are the tasks in your list:
+   Here are the tasks in your list nya~
    1.[T][ ] read book
    2.[D][ ] return book (by: Jun 6 2019)
    3.[T][ ] join sports club
    4.[T][ ] borrow book
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Purr~ See you next time!
   ____________________________________________________________
   ```
 
@@ -400,32 +407,32 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
     / /|_/ / __ \/ ___/ __ \/ /
    / /  / / /_/ / /__/ / / / /
   /_/  /_/\____/\___/_/ /_/_/
-  Hello! I'm Mochi.
-  What can I do for you?
+  Nya~ Hello! I'm Mochi!
+  I'll help you keep your life organised~
   ____________________________________________________________
   ____________________________________________________________
-   Got it. I've added this task:
+   Got it! I've added this task nya~
      [T][ ] read book
-   Now you have 1 tasks in the list.
+   You now have 1 task in the list~
   ____________________________________________________________
   ____________________________________________________________
-   OOPS!!! There is no task number 2 in the list.
+   Nya-no!!! There is no task number 2 in the list.
   ____________________________________________________________
   ____________________________________________________________
-   OOPS!!! There is no task number 0 in the list.
+   Nya-no!!! There is no task number 0 in the list.
   ____________________________________________________________
   ____________________________________________________________
-   OOPS!!! Please give a task number, e.g., mark 2
+   Nya-no!!! Please give a task number, e.g., delete 3
   ____________________________________________________________
   ____________________________________________________________
-   OOPS!!! Please give a task number, e.g., mark 2
+   Nya-no!!! Please give a task number, e.g., delete 3
   ____________________________________________________________
   ____________________________________________________________
-   Here are the tasks in your list:
+   Here are the tasks in your list nya~
    1.[T][ ] read book
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Purr~ See you next time!
   ____________________________________________________________
   ```
 
@@ -446,20 +453,20 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
     / /|_/ / __ \/ ___/ __ \/ /
    / /  / / /_/ / /__/ / / / /
   /_/  /_/\____/\___/_/ /_/_/
-  Hello! I'm Mochi.
-  What can I do for you?
+  Nya~ Hello! I'm Mochi!
+  I'll help you keep your life organised~
   ____________________________________________________________
   ____________________________________________________________
-   Got it. I've added this task:
+   Got it! I've added this task nya~
      [D][ ] return book (by: Dec 2 2019)
-   Now you have 1 tasks in the list.
+   You now have 1 task in the list~
   ____________________________________________________________
   ____________________________________________________________
-   Here are the tasks in your list:
+   Here are the tasks in your list nya~
    1.[D][ ] return book (by: Dec 2 2019)
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Purr~ See you next time!
   ____________________________________________________________
   ```
 
@@ -481,17 +488,17 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
     / /|_/ / __ \/ ___/ __ \/ /
    / /  / / /_/ / /__/ / / / /
   /_/  /_/\____/\___/_/ /_/_/
-  Hello! I'm Mochi.
-  What can I do for you?
+  Nya~ Hello! I'm Mochi!
+  I'll help you keep your life organised~
   ____________________________________________________________
   ____________________________________________________________
-   OOPS!!! The date must be in yyyy-mm-dd format, e.g., 2019-10-15
+   Nya-no!!! The date must be in yyyy-mm-dd format, e.g., 2019-10-15
   ____________________________________________________________
   ____________________________________________________________
-   OOPS!!! The dates must be in yyyy-mm-dd format, e.g., 2019-10-15
+   Nya-no!!! The dates must be in yyyy-mm-dd format, e.g., 2019-10-15
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Purr~ See you next time!
   ____________________________________________________________
   ```
 
@@ -514,31 +521,31 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
     / /|_/ / __ \/ ___/ __ \/ /
    / /  / / /_/ / /__/ / / / /
   /_/  /_/\____/\___/_/ /_/_/
-  Hello! I'm Mochi.
-  What can I do for you?
+  Nya~ Hello! I'm Mochi!
+  I'll help you keep your life organised~
   ____________________________________________________________
   ____________________________________________________________
-   Got it. I've added this task:
+   Got it! I've added this task nya~
      [T][ ] read book
-   Now you have 1 tasks in the list.
+   You now have 1 task in the list~
   ____________________________________________________________
   ____________________________________________________________
-   Got it. I've added this task:
+   Got it! I've added this task nya~
      [D][ ] return book (by: Dec 2 2019)
-   Now you have 2 tasks in the list.
+   You now have 2 tasks in the list~
   ____________________________________________________________
   ____________________________________________________________
-   Got it. I've added this task:
+   Got it! I've added this task nya~
      [E][ ] project meeting (from: Oct 15 2019 to: Oct 16 2019)
-   Now you have 3 tasks in the list.
+   You now have 3 tasks in the list~
   ____________________________________________________________
   ____________________________________________________________
-   Here are the matching tasks in your list:
+   Here are the matching tasks nya~
    1.[T][ ] read book
    2.[D][ ] return book (by: Dec 2 2019)
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Purr~ See you next time!
   ____________________________________________________________
   ```
 
@@ -559,19 +566,19 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
     / /|_/ / __ \/ ___/ __ \/ /
    / /  / / /_/ / /__/ / / / /
   /_/  /_/\____/\___/_/ /_/_/
-  Hello! I'm Mochi.
-  What can I do for you?
+  Nya~ Hello! I'm Mochi!
+  I'll help you keep your life organised~
   ____________________________________________________________
   ____________________________________________________________
-   Got it. I've added this task:
+   Got it! I've added this task nya~
      [T][ ] read book
-   Now you have 1 tasks in the list.
+   You now have 1 task in the list~
   ____________________________________________________________
   ____________________________________________________________
-   Here are the matching tasks in your list:
+   Here are the matching tasks nya~
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Purr~ See you next time!
   ____________________________________________________________
   ```
 
@@ -599,49 +606,49 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
     / /|_/ / __ \/ ___/ __ \/ /
    / /  / / /_/ / /__/ / / / /
   /_/  /_/\____/\___/_/ /_/_/
-  Hello! I'm Mochi.
-  What can I do for you?
+  Nya~ Hello! I'm Mochi!
+  I'll help you keep your life organised~
   ____________________________________________________________
   ____________________________________________________________
-   Got it. I've added this note:
+   Got it! I've added this note nya~
      waist size is 32
-   Now you have 1 notes in the list.
+   You now have 1 note in the list~
   ____________________________________________________________
   ____________________________________________________________
-   Got it. I've added this note:
+   Got it! I've added this note nya~
      movie to watch: interstellar
-   Now you have 2 notes in the list.
+   You now have 2 notes in the list~
   ____________________________________________________________
   ____________________________________________________________
-   Got it. I've added this note:
+   Got it! I've added this note nya~
      buy milk
-   Now you have 3 notes in the list.
+   You now have 3 notes in the list~
   ____________________________________________________________
   ____________________________________________________________
-   Here are your notes:
+   Here are your notes nya~
    1.waist size is 32
    2.movie to watch: interstellar
    3.buy milk
   ____________________________________________________________
   ____________________________________________________________
-   Noted. I've removed this note:
+   Nya~ I've removed this note:
      movie to watch: interstellar
-   Now you have 2 notes in the list.
+   You have 2 notes left nya~
   ____________________________________________________________
   ____________________________________________________________
-   Here are your notes:
+   Here are your notes nya~
    1.waist size is 32
    2.buy milk
   ____________________________________________________________
   ____________________________________________________________
-   Here are the matching notes in your list:
+   Here are the matching notes nya~
    1.buy milk
   ____________________________________________________________
   ____________________________________________________________
-   Here are the matching notes in your list:
+   Here are the matching notes nya~
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Purr~ See you next time!
   ____________________________________________________________
   ```
 
@@ -671,52 +678,52 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
     / /|_/ / __ \/ ___/ __ \/ /
    / /  / / /_/ / /__/ / / / /
   /_/  /_/\____/\___/_/ /_/_/
-  Hello! I'm Mochi.
-  What can I do for you?
+  Nya~ Hello! I'm Mochi!
+  I'll help you keep your life organised~
   ____________________________________________________________
   ____________________________________________________________
-   Got it. I've added this place:
+   Got it! I've added this place nya~
      hawkerlicious
-   Now you have 1 places in the list.
+   You now have 1 place in the list~
   ____________________________________________________________
   ____________________________________________________________
-   Got it. I've added this place:
+   Got it! I've added this place nya~
      cafes
-   Now you have 2 places in the list.
+   You now have 2 places in the list~
   ____________________________________________________________
   ____________________________________________________________
-   Got it. I've added this place:
+   Got it! I've added this place nya~
      gym max
-   Now you have 3 places in the list.
+   You now have 3 places in the list~
   ____________________________________________________________
   ____________________________________________________________
-   Here are the places in your list:
+   Here are the places in your list nya~
    1.hawkerlicious
    2.cafes
    3.gym max
   ____________________________________________________________
   ____________________________________________________________
-   Here are the details of cafes:
+   Here are the details of cafes nya~
    1.good wifi for studying
   ____________________________________________________________
   ____________________________________________________________
-   Noted. I've removed this place:
+   Nya~ I've removed this place:
      gym max
-   Now you have 2 places in the list.
+   You have 2 places left nya~
   ____________________________________________________________
   ____________________________________________________________
-   Here are the places in your list:
+   Here are the places in your list nya~
    1.hawkerlicious
    2.cafes
   ____________________________________________________________
   ____________________________________________________________
-   Here are the matching places in your list:
+   Here are the matching places nya~
    1.cafes
   ____________________________________________________________
   ____________________________________________________________
-   Here are the matching places in your list:
+   Here are the matching places nya~
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Purr~ See you next time!
   ____________________________________________________________
   ```
