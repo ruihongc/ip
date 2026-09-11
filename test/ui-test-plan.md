@@ -14,6 +14,13 @@ Machine-readable input/expected file pairs for each case are in `test/cases/`.
 > `mochi.gui.Launcher` entry point. The text UI below is preserved and still
 > exercised by these test cases. The GUI reuses the same responses through
 > `Mochi.getResponse`, covered by `MochiTest`.
+>
+> **GUI styling (A-BetterGui):** The JavaFX window is resizable (with a small
+> minimum size) and styled by `view/main.css`. User and Mochi bubbles differ in
+> colour and font size (13px vs 15px) and their profile pictures differ in size,
+> so the two speakers have visually distinct bubbles. Error replies that start
+> with `Nya-no!!!` are highlighted with a red bubble. The GUI is not exercised
+> by the text-UI cases; it is verified by a manual smoke test on launch.
 
 ## Test 1: Greeting and exit
 

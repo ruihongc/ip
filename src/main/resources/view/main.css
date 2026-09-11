@@ -1,0 +1,62 @@
+.root {
+    -fx-background-color: #fdf6ed;
+}
+
+#scrollPane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+#dialogContainer {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+#userInput {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 18;
+    -fx-border-color: #e8d9c5;
+    -fx-border-radius: 18;
+    -fx-padding: 8 14 8 14;
+    -fx-prompt-text-fill: #b3a38f;
+    -fx-text-fill: #3d2c1c;
+    -fx-font-size: 13px;
+}
+
+#sendButton {
+    -fx-background-color: #ff9d76;
+    -fx-background-radius: 18;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+}
+
+#sendButton:hover {
+    -fx-background-color: #ff8354;
+}
+
+.bubble-user {
+    -fx-background-color: #cfeaff;
+    -fx-background-radius: 18 18 18 4;
+    -fx-padding: 10 14 10 14;
+    -fx-text-fill: #15304d;
+    -fx-font-size: 13px;
+}
+
+.bubble-mochi {
+    -fx-background-color: #ffe4cd;
+    -fx-background-radius: 18 18 4 18;
+    -fx-padding: 12 16 12 16;
+    -fx-text-fill: #4a2f1a;
+    -fx-font-size: 15px;
+}
+
+.bubble-error {
+    -fx-background-color: #ffd4d4;
+    -fx-background-radius: 18 18 4 18;
+    -fx-padding: 12 16 12 16;
+    -fx-text-fill: #7d0a0a;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
