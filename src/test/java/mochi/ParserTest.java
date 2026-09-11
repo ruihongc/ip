@@ -83,9 +83,9 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_todoEmpty_returnsAddTodoCommandWithEmptyArgs() throws MochiException {
-        Command cmd = Parser.parse("todo");
-        assertInstanceOf(AddTodoCommand.class, cmd);
+    public void parse_todoEmpty_throwsMochiException() {
+        MochiException ex = assertThrows(MochiException.class, () -> Parser.parse("todo"));
+        assertEquals("The description of a todo cannot be empty.", ex.getMessage());
     }
 
     @Test

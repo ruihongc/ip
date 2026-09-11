@@ -43,6 +43,18 @@ public class PlaceList {
     }
 
     /**
+     * Checks whether the list already contains a place with the given name,
+     * ignoring case.
+     *
+     * @param name the name to look for
+     * @return true if a place with the name already exists
+     */
+    public boolean containsName(String name) {
+        return places.stream()
+                .anyMatch(place -> place.getName().equalsIgnoreCase(name));
+    }
+
+    /**
      * Removes the place at the given index and saves.
      *
      * @param index 0-based position of the place to remove

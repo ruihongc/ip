@@ -46,6 +46,9 @@ public class AddEventCommand extends Command {
         } catch (DateTimeParseException e) {
             throw new MochiException("The dates must be in yyyy-mm-dd format, e.g., 2019-10-15");
         }
+        if (to.isBefore(from)) {
+            throw new MochiException("The end date of an event cannot be before its start date.");
+        }
         Event event = new Event(description, from, to);
         tasks.add(event);
         ui.showAdded(event, tasks.getTasks().size());
