@@ -4,47 +4,47 @@ ____________________________________________________________
   / /|_/ / __ \/ ___/ __ \/ /
  / /  / / /_/ / /__/ / / / /
 /_/  /_/\____/\___/_/ /_/_/
-Hello! I'm Mochi.
-What can I do for you?
+Nya~ Hello! I'm Mochi!
+I'll help you keep your life organised~
 ____________________________________________________________
 ____________________________________________________________
- Got it. I've added this note:
+ Got it! I've added this note nya~
    waist size is 32
- Now you have 1 notes in the list.
+ You now have 1 note in the list~
 ____________________________________________________________
 ____________________________________________________________
- Got it. I've added this note:
+ Got it! I've added this note nya~
    movie to watch: interstellar
- Now you have 2 notes in the list.
+ You now have 2 notes in the list~
 ____________________________________________________________
 ____________________________________________________________
- Got it. I've added this note:
+ Got it! I've added this note nya~
    buy milk
- Now you have 3 notes in the list.
+ You now have 3 notes in the list~
 ____________________________________________________________
 ____________________________________________________________
- Here are your notes:
+ Here are your notes nya~
  1.waist size is 32
  2.movie to watch: interstellar
  3.buy milk
 ____________________________________________________________
 ____________________________________________________________
- Noted. I've removed this note:
+ Nya~ I've removed this note:
    movie to watch: interstellar
- Now you have 2 notes in the list.
+ You have 2 notes left nya~
 ____________________________________________________________
 ____________________________________________________________
- Here are your notes:
+ Here are your notes nya~
  1.waist size is 32
  2.buy milk
 ____________________________________________________________
 ____________________________________________________________
- Here are the matching notes in your list:
+ Here are the matching notes nya~
  1.buy milk
 ____________________________________________________________
 ____________________________________________________________
- Here are the matching notes in your list:
+ Here are the matching notes nya~
 ____________________________________________________________
 ____________________________________________________________
-Bye. Hope to see you again soon!
+Purr~ See you next time!
 ____________________________________________________________

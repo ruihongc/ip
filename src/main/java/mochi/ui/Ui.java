@@ -9,6 +9,7 @@ import mochi.task.Task;
 
 /**
  * Handles all user interface operations: displaying messages and reading input.
+ * Mochi speaks with a playful cat personality, using nya~ and cat expressions.
  */
 public class Ui {
     private static final String LINE = "____________________________________________________________";
@@ -42,8 +43,8 @@ public class Ui {
                 + "/_/  /_/\\____/\\___/_/ /_/_/";
         out.println(LINE);
         out.println(banner);
-        out.println("Hello! I'm Mochi.");
-        out.println("What can I do for you?");
+        out.println("Nya~ Hello! I'm Mochi!");
+        out.println("I'll help you keep your life organised~");
         out.println(LINE);
     }
 
@@ -59,7 +60,7 @@ public class Ui {
      */
     public void showGoodbye() {
         out.println(LINE);
-        out.println("Bye. Hope to see you again soon!");
+        out.println("Purr~ See you next time!");
         out.println(LINE);
     }
 
@@ -68,7 +69,7 @@ public class Ui {
      */
     public void showError(String message) {
         out.println(LINE);
-        out.println(" OOPS!!! " + message);
+        out.println(" Nya-no!!! " + message);
         out.println(LINE);
     }
 
@@ -76,21 +77,21 @@ public class Ui {
      * Shows the full task list.
      */
     public void showTaskList(List<Task> tasks) {
-        showNumberedList(" Here are the tasks in your list:", tasks);
+        showNumberedList(" Here are the tasks in your list nya~", tasks);
     }
 
     /**
      * Shows the full note list.
      */
     public void showNoteList(List<String> notes) {
-        showNumberedList(" Here are your notes:", notes);
+        showNumberedList(" Here are your notes nya~", notes);
     }
 
     /**
      * Shows the full place list.
      */
     public void showPlaceList(List<Place> places) {
-        showNumberedList(" Here are the places in your list:", places);
+        showNumberedList(" Here are the places in your list nya~", places);
     }
 
     /**
@@ -98,7 +99,7 @@ public class Ui {
      */
     public void showMarked(Task task) {
         out.println(LINE);
-        out.println(" Nice! I've marked this task as done:");
+        out.println(" Purr~ I've marked this task as done:");
         out.println("   " + task);
         out.println(LINE);
     }
@@ -108,7 +109,7 @@ public class Ui {
      */
     public void showUnmarked(Task task) {
         out.println(LINE);
-        out.println(" OK, I've marked this task as not done yet:");
+        out.println(" OK~ I've unmarked this task:");
         out.println("   " + task);
         out.println(LINE);
     }
@@ -118,9 +119,9 @@ public class Ui {
      */
     public void showDeleted(Task task, int remainingCount) {
         out.println(LINE);
-        out.println(" Noted. I've removed this task:");
+        out.println(" Nya~ I've removed this task:");
         out.println("   " + task);
-        out.println(" Now you have " + remainingCount + " tasks in the list.");
+        out.println(" You have " + remainingCount + " task" + (remainingCount == 1 ? "" : "s") + " left nya~");
         out.println(LINE);
     }
 
@@ -129,9 +130,9 @@ public class Ui {
      */
     public void showAdded(Task task, int count) {
         out.println(LINE);
-        out.println(" Got it. I've added this task:");
+        out.println(" Got it! I've added this task nya~");
         out.println("   " + task);
-        out.println(" Now you have " + count + " tasks in the list.");
+        out.println(" You now have " + count + " task" + (count == 1 ? "" : "s") + " in the list~");
         out.println(LINE);
     }
 
@@ -140,9 +141,9 @@ public class Ui {
      */
     public void showAddedNote(String note, int count) {
         out.println(LINE);
-        out.println(" Got it. I've added this note:");
+        out.println(" Got it! I've added this note nya~");
         out.println("   " + note);
-        out.println(" Now you have " + count + " notes in the list.");
+        out.println(" You now have " + count + " note" + (count == 1 ? "" : "s") + " in the list~");
         out.println(LINE);
     }
 
@@ -151,9 +152,9 @@ public class Ui {
      */
     public void showDeletedNote(String note, int remainingCount) {
         out.println(LINE);
-        out.println(" Noted. I've removed this note:");
+        out.println(" Nya~ I've removed this note:");
         out.println("   " + note);
-        out.println(" Now you have " + remainingCount + " notes in the list.");
+        out.println(" You have " + remainingCount + " note" + (remainingCount == 1 ? "" : "s") + " left nya~");
         out.println(LINE);
     }
 
@@ -163,7 +164,7 @@ public class Ui {
      * @param matching the list of matching notes
      */
     public void showMatchingNotes(List<String> matching) {
-        showNumberedList(" Here are the matching notes in your list:", matching);
+        showNumberedList(" Here are the matching notes nya~", matching);
     }
 
     /**
@@ -171,9 +172,9 @@ public class Ui {
      */
     public void showAddedPlace(Place place, int count) {
         out.println(LINE);
-        out.println(" Got it. I've added this place:");
+        out.println(" Got it! I've added this place nya~");
         out.println("   " + place);
-        out.println(" Now you have " + count + " places in the list.");
+        out.println(" You now have " + count + " place" + (count == 1 ? "" : "s") + " in the list~");
         out.println(LINE);
     }
 
@@ -182,9 +183,9 @@ public class Ui {
      */
     public void showDeletedPlace(Place place, int remainingCount) {
         out.println(LINE);
-        out.println(" Noted. I've removed this place:");
+        out.println(" Nya~ I've removed this place:");
         out.println("   " + place);
-        out.println(" Now you have " + remainingCount + " places in the list.");
+        out.println(" You have " + remainingCount + " place" + (remainingCount == 1 ? "" : "s") + " left nya~");
         out.println(LINE);
     }
 
@@ -195,7 +196,7 @@ public class Ui {
      */
     public void showPlaceDetails(Place place) {
         out.println(LINE);
-        out.println(" Here are the details of " + place.getName() + ":");
+        out.println(" Here are the details of " + place.getName() + " nya~");
         IntStream.range(0, place.getDetails().size())
                 .forEach(i -> out.println(" " + (i + 1) + "." + place.getDetails().get(i)));
         out.println(LINE);
@@ -207,7 +208,7 @@ public class Ui {
      * @param matching the list of matching places
      */
     public void showMatchingPlaces(List<Place> matching) {
-        showNumberedList(" Here are the matching places in your list:", matching);
+        showNumberedList(" Here are the matching places nya~", matching);
     }
 
     /**
@@ -216,7 +217,7 @@ public class Ui {
      * @param matching the list of matching tasks
      */
     public void showMatchingTasks(List<Task> matching) {
-        showNumberedList(" Here are the matching tasks in your list:", matching);
+        showNumberedList(" Here are the matching tasks nya~", matching);
     }
 
     /**

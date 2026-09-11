@@ -4,51 +4,51 @@ ____________________________________________________________
   / /|_/ / __ \/ ___/ __ \/ /
  / /  / / /_/ / /__/ / / / /
 /_/  /_/\____/\___/_/ /_/_/
-Hello! I'm Mochi.
-What can I do for you?
+Nya~ Hello! I'm Mochi!
+I'll help you keep your life organised~
 ____________________________________________________________
 ____________________________________________________________
- Got it. I've added this place:
+ Got it! I've added this place nya~
    hawkerlicious
- Now you have 1 places in the list.
+ You now have 1 place in the list~
 ____________________________________________________________
 ____________________________________________________________
- Got it. I've added this place:
+ Got it! I've added this place nya~
    cafes
- Now you have 2 places in the list.
+ You now have 2 places in the list~
 ____________________________________________________________
 ____________________________________________________________
- Got it. I've added this place:
+ Got it! I've added this place nya~
    gym max
- Now you have 3 places in the list.
+ You now have 3 places in the list~
 ____________________________________________________________
 ____________________________________________________________
- Here are the places in your list:
+ Here are the places in your list nya~
  1.hawkerlicious
  2.cafes
  3.gym max
 ____________________________________________________________
 ____________________________________________________________
- Here are the details of cafes:
+ Here are the details of cafes nya~
  1.good wifi for studying
 ____________________________________________________________
 ____________________________________________________________
- Noted. I've removed this place:
+ Nya~ I've removed this place:
    gym max
- Now you have 2 places in the list.
+ You have 2 places left nya~
 ____________________________________________________________
 ____________________________________________________________
- Here are the places in your list:
+ Here are the places in your list nya~
  1.hawkerlicious
  2.cafes
 ____________________________________________________________
 ____________________________________________________________
- Here are the matching places in your list:
+ Here are the matching places nya~
  1.cafes
 ____________________________________________________________
 ____________________________________________________________
- Here are the matching places in your list:
+ Here are the matching places nya~
 ____________________________________________________________
 ____________________________________________________________
-Bye. Hope to see you again soon!
+Purr~ See you next time!
 ____________________________________________________________

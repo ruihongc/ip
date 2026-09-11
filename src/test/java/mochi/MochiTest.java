@@ -18,8 +18,9 @@ public class MochiTest {
     @Test
     public void getResponse_greetingAndTask_returnsReplies() throws MochiException {
         Mochi mochi = new Mochi(tempDir.resolve("tasks.txt").toString());
-        assertTrue(mochi.getResponse("todo read book").contains("Got it. I've added this task"));
+        assertTrue(mochi.getResponse("todo read book").contains("Got it! I've added this task nya~"));
         assertTrue(mochi.getResponse("list").contains("1.[T][ ] read book"));
+        assertTrue(mochi.getResponse("list").contains("Here are the tasks in your list nya~"));
     }
 
     @Test
