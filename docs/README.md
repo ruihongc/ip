@@ -250,5 +250,8 @@ the [SE-EDU initiative](https://se-education.org), and it follows the SE-EDU
 building a chat-based GUI. The profile pictures used in the GUI
 (`DaUser.png` and `DaMochi.png`) are adapted from images provided in the
 CS2103T module materials. These resources are reused with acknowledgment, as
-required by the course. All other code, tests, and documentation are written
-by the author for this project.
+required by the course. The remaining implementation, tests, and
+documentation were produced with the assistance of an AI coding assistant at
+course level AI-5 and reviewed by the author; see the repository's
+[`README.md`](https://github.com/ruihongc/ip/blob/master/README.md) for the
+full use-of-AI acknowledgement.
