@@ -239,3 +239,16 @@ Mochi saves your data automatically in a `data` folder next to the app:
 The files are plain text, so you can back them up by copying the `data` folder.
 If a line in a data file is corrupted, Mochi skips it instead of crashing, so
 you can always start Mochi even if a previous session ended badly.
+
+---
+
+## Acknowledgements
+
+This project is based on the **Duke** individual project template created by
+the [SE-EDU initiative](https://se-education.org), and it follows the SE-EDU
+[JavaFX tutorial](https://se-education.org/guides/tutorials/javaFx.html) for
+building a chat-based GUI. The profile pictures used in the GUI
+(`DaUser.png` and `DaMochi.png`) are adapted from images provided in the
+CS2103T module materials. These resources are reused with acknowledgment, as
+required by the course. All other code, tests, and documentation are written
+by the author for this project.
