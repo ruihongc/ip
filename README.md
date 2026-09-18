@@ -46,5 +46,17 @@ project template (originally named _Duke_) and follows the individual project
 framework taught in the CS2103T software engineering course at NUS. The JavaFX
 GUI structure follows the SE-EDU JavaFX tutorial for chat-based bots. The user
 and assistant profile pictures (`DaUser.png`, `DaMochi.png`) are adapted from
-the images provided in the CS2103T module materials. All other code is written
-by the author for this project.
+the images provided in the CS2103T module materials.
+
+### Use of AI
+
+This project was developed with the help of an AI-powered coding assistant
+(opencode) as allowed by the CS2103T [course expectations on the use of
+AI](https://nus-cs2103-ay2627-s1.github.io/website/admin/courseExpectations.html).
+The coding tasks were carried out at course level **AI-5 ("AI codes, you
+review")**: the AI generated the implementation, tests, and project
+documentation, and the author fully reviewed the code, tests, and behavior
+before each increment was merged and released. Where the generated material
+touched unfamiliar ground, the author also used the AI as a learning aid to
+understand the concepts, the Java coding standard, and the Git conventions
+that this project follows.
